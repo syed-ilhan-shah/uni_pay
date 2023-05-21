@@ -8,6 +8,8 @@ A library for making online payment by using Moyasar payment gateway developed b
 - **Apple Pay - [Integration](https://help.moyasar.com/en/article/moyasar-dashboard-apple-pay-certificate-activation-9l6sd5/) and [Xcode setup](https://help.apple.com/xcode/mac/9.3/#/deva43983eb7?sub=dev44ce8ef13)**
 - **Tamara - [Docs](https://docs.tamara.co/introduction/)**
 
+![Payment Screenshot](https://raw.githubusercontent.com/UNICODE-Venture/uni_pay/main/assets/screenshots/screenshot.png)
+
 ## Getting started
 
 Please have a look at our [/example](https://pub.dev/packages/uni_pay/example) project for a better understanding of implementations.
