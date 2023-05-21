@@ -1,0 +1,64 @@
+# A library for making online payment by using Moyasar and Tamara payment gateway
+#* Developed, published, and maintained by Mohammad Saiful Islam Saif
+# https://github.com/mohammadsaif19
+
+name: uni_pay
+description: A library for making online payment by using Moyasar payment gateway developed by UNICODE Team.
+version: 0.0.1
+repository: https://github.com/UNICODE-Venture/uni_pay
+homepage: https://github.com/UNICODE-Venture/uni_pay
+issue_tracker: https://github.com/UNICODE-Venture/uni_pay/issues
+
+environment:
+  sdk: ">=2.19.6 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  #* Localizations
+  flutter_localizations:
+    sdk: flutter
+
+  #* Netowrk and http calls
+  http: ^0.13.6
+
+  #* State management solution
+  provider: ^6.0.5
+
+  #* Moyasar payment gateway
+  moyasar: ^1.0.2
+
+  #* UI and UX related
+  lottie: ^2.3.2
+
+  #* Webview
+  flutter_inappwebview: ^5.7.2+3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  assets:
+    - assets/animations/
+    - assets/images/
+
+  fonts:
+    - family: IBMPlexSansArabic
+      fonts:
+        - asset: assets/fonts/IBMPlexSansArabic/IBMPlexSansArabic-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/IBMPlexSansArabic/IBMPlexSansArabic-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/IBMPlexSansArabic/IBMPlexSansArabic-Light.ttf
+          weight: 300
+        - asset: assets/fonts/IBMPlexSansArabic/IBMPlexSansArabic-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/IBMPlexSansArabic/IBMPlexSansArabic-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/IBMPlexSansArabic/IBMPlexSansArabic-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/IBMPlexSansArabic/IBMPlexSansArabic-Bold.ttf
+          weight: 700
