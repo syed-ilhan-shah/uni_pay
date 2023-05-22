@@ -34,6 +34,7 @@ class UniPaymentOptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: UniPayColorsPalletes.transparent,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 15.rh),
         child: GestureDetector(

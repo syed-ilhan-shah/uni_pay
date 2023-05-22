@@ -1,6 +1,6 @@
 # Payment Gateway Library by **UNICODE Team**
 
-A library for making online payment by using Moyasar payment gateway developed by **UNICODE Team**.
+A library for making online payment by using Moyasar and Tamara payment gateway
 
 # **Features support**
 

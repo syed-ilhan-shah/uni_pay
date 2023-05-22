@@ -3,13 +3,11 @@ import 'dart:io';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:moyasar/moyasar.dart';
 import 'package:uni_pay/src/utils/extension.dart';
-import 'package:uni_pay/src/utils/uni_enums.dart';
-
-import '../../providers/uni_pay_provider.dart';
+import 'package:uni_pay/uni_pay.dart';
 
 class ApiKeys {
   static String get tamaraBaseUrl =>
-      uniPayProivder.uniPayData.environment.isProduction
+      UniPayControllers.uniPayData.environment.isProduction
           ? tamaraProductionBaseUrl
           : tamaraBaseUrlForDev;
 
@@ -28,17 +26,22 @@ class ApiKeys {
   static Map<String, String> get tamaraHeaders => {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.authorizationHeader:
-            uniPayProivder.uniPayData.credentials.tamaraCredential!.token,
+            UniPayControllers.uniPayData.credentials.tamaraCredential!.token,
       };
 
   ///* Process payment --------------------------------
   static PaymentConfig get moyasarPaymentConfig => PaymentConfig(
-        publishableApiKey: uniPayProivder
-            .uniPayData.credentials.moyasarCredential!.publishableKey,
-        amount: uniPayProivder
-            .uniPayData.orderInfo.transactionAmount.totalAmount.amountInHalala,
-        description: uniPayProivder.uniPayData.orderInfo.description,
-      );
+      publishableApiKey: UniPayControllers
+          .uniPayData.credentials.moyasarCredential!.publishableKey,
+      amount: UniPayControllers
+          .uniPayData.orderInfo.transactionAmount.totalAmount.amountInHalala,
+      description: UniPayControllers.uniPayData.orderInfo.description,
+      applePay: ApplePayConfig(
+        label: UniPayControllers.uniPayData.appName,
+        merchantId: UniPayControllers
+                .uniPayData.credentials.applePayMerchantIdentifier ??
+            "",
+      ));
 
   ///* Web view options
   static InAppWebViewGroupOptions webViewGroupOptions =

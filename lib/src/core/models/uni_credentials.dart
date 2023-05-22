@@ -13,10 +13,14 @@ class UniPayCredentials {
   ///* Tamara credentials
   late TamaraCredential? tamaraCredential;
 
+  ///* Apple pay merchant identifier
+  late String? applePayMerchantIdentifier;
+
   UniPayCredentials({
     required this.paymentMethods,
     this.moyasarCredential,
     this.tamaraCredential,
+    this.applePayMerchantIdentifier,
   })  : assert(
             paymentMethods.isMoyasarGateway ? moyasarCredential != null : true,
             UniPayText.pleaseProvideMoyasarCredentails),
@@ -24,7 +28,12 @@ class UniPayCredentials {
             UniPayText.pleaseProvideTamaraCredentails),
         assert(paymentMethods.isNotEmpty, UniPayText.noGatewayProvided),
         assert(moyasarCredential != null || tamaraCredential != null,
-            UniPayText.pleaseProvideCredentials);
+            UniPayText.pleaseProvideCredentials),
+        assert(
+            paymentMethods.isApplePay
+                ? applePayMerchantIdentifier != null
+                : true,
+            UniPayText.applePayMerchantIdentifierError);
 
   UniPayCredentials.fromJson(Map<String, dynamic> json) {
     paymentMethods =

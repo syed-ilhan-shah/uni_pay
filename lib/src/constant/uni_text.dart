@@ -50,4 +50,8 @@ class UniPayText {
       : "نقبل مدى وفيزا وماستركارد وأمريكان إكسبريس";
 
   static String get learnMore => isEnglish ? "Learn More!" : "اعرف أكثر!";
+
+  static String get applePayMerchantIdentifierError => isEnglish
+      ? "Please provide apple pay merchant identifier to proceed the payment"
+      : "يرجى تقديم معرف تاجر Apple Pay لمتابعة الدفع";
 }

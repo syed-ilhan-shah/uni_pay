@@ -4,7 +4,6 @@ import 'package:uni_pay/src/views/widgets/payment_options_widget.dart';
 import 'package:uni_pay/uni_pay.dart';
 
 import '../../../../constant/uni_text.dart';
-import '../../../../core/models/widget_data.dart';
 import 'learn_more_widget.dart';
 
 class TamaraSplitPlanWidget extends StatelessWidget {

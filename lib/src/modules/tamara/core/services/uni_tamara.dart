@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:uni_pay/src/constant/uni_text.dart';
 import 'package:uni_pay/src/core/keys/api_keys.dart';
 import 'package:uni_pay/src/core/models/uni_pay_res.dart';
 import 'package:uni_pay/src/utils/extension.dart';
@@ -18,7 +19,7 @@ class UniTamara {
   UniTamara._();
 
   ///* Generate checkout urls for tamara
-  static Future<TamaraCheckoutData?> generateTamaraCheckoutUrls(
+  static Future<TamaraCheckoutData> generateTamaraCheckoutUrls(
       UniPayData uniPayData) async {
     final order = uniPayData.orderInfo;
     final customer = uniPayData.customerInfo;
@@ -68,13 +69,14 @@ class UniTamara {
       merchantUrl: uniPayData.credentials.tamaraCredential!.merchantUrl,
     );
 
-    TamaraCheckoutData? checkout = await UniTamara.tamaraCheckout(tamaraData);
+    TamaraCheckoutData checkout = await UniTamara.tamaraCheckout(tamaraData);
     return checkout;
   }
 
   ///* Call tamara checkout
-  static Future<TamaraCheckoutData?> tamaraCheckout(
+  static Future<TamaraCheckoutData> tamaraCheckout(
       TamaraData tamaraData) async {
+    TamaraCheckoutData checkout = TamaraCheckoutData();
     try {
       String data = jsonEncode(tamaraData.toJson());
       // uniPrint(data);
@@ -83,19 +85,22 @@ class UniTamara {
         headers: ApiKeys.tamaraHeaders,
         body: data,
       );
-      // uniLog(
-      //     "${ApiKeys.tamaraCheckoutUrl} - ${ApiKeys.tamaraHeaders}---> ${response.body}");
-
+      uniLog(
+          "${ApiKeys.tamaraCheckoutUrl} - ${ApiKeys.tamaraHeaders}---> ${response.body}");
+      final responseBody = json.decode(response.body);
       if (response.statusCode.isSuccess) {
-        TamaraCheckoutData checkout =
-            TamaraCheckoutData.fromJson(json.decode(response.body));
-        if (checkout.checkoutUrl.isNotEmpty) return checkout;
+        checkout = TamaraCheckoutData.fromJson(responseBody);
+        // if (checkout.checkoutUrl.isNotEmpty) return checkout;
+      } else {
+        checkout.errorMessage =
+            responseBody["message"] ?? UniPayText.somethingWentWrong;
+        checkout.errors = responseBody["errors"] ?? "";
       }
     } on HttpException catch (e) {
       uniPrint(e.message);
     }
 
-    return null;
+    return checkout;
   }
 
   ///* Process the Tamara payment
@@ -105,9 +110,9 @@ class UniTamara {
     //* Success
     if (status.isSuccess) {
       response.transactionId = transactionId ??
-          "TAMARA_TRXN_${uniPayProivder.uniPayData.orderInfo.orderId}}";
+          "TAMARA_TRXN_${UniPayControllers.uniPayData.orderInfo.orderId}}";
     }
-    uniPayProivder.handlePaymentsResponseAndCallback(context,
+    UniPayControllers.handlePaymentsResponseAndCallback(context,
         response: response);
     // //* Cancelled
     // else if (status.isCancelled) {

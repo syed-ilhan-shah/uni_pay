@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:uni_pay/src/utils/extension.dart';
 import 'package:uni_pay/src/utils/extension/size_extension.dart';
 
@@ -19,7 +18,11 @@ class UniPayDesignSystem {
   }) =>
       AppBar(
         elevation: 0,
-        leading: leading ?? const BackButton(color: UniPayColorsPalletes.black),
+        leading: leading ??
+            BackButton(
+              color: UniPayColorsPalletes.black,
+              onPressed: () => UniPayControllers.context.uniParentPop(),
+            ),
         flexibleSpace: GlassMorphism(
           sigmaVal: 5,
           child: Container(color: UniPayColorsPalletes.transparent),
@@ -44,10 +47,26 @@ class UniPayDesignSystem {
       );
 
   ///* Error View
-  static Widget errorView({String? title}) => Center(
-        child: Text(
-          title ?? UniPayText.somethingWentWrong,
-          style: UniPayTheme.uniPayStyle,
+  static Widget errorView({String? title, dynamic subTitle}) => Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              title ?? UniPayText.somethingWentWrong,
+              style: UniPayTheme.uniPayStyle,
+            ),
+            if (subTitle != null) ...[
+              10.vs,
+              Text(
+                subTitle.toString(),
+                textAlign: TextAlign.center,
+                style: UniPayTheme.uniPayStyle.copyWith(
+                  color: UniPayColorsPalletes.greyTextColor,
+                ),
+              )
+            ]
+          ],
         ),
       );
 
@@ -125,28 +144,28 @@ class GlassMorphism extends StatelessWidget {
   }
 }
 
-class UniPayScaffold extends StatelessWidget {
-  final String title;
-  final Widget Function(BuildContext) builder;
-  const UniPayScaffold({Key? key, required this.title, required this.builder})
-      : super(key: key);
+// class UniPayScaffold extends StatelessWidget {
+//   final String title;
+//   final Widget Function(BuildContext) builder;
+//   const UniPayScaffold({Key? key, required this.title, required this.builder})
+//       : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // extendBodyBehindAppBar: true,
-      appBar: UniPayDesignSystem.appBar(title: title),
-      body: Consumer<UniPayProivder>(
-        builder: (_, provider, __) {
-          if (provider.uniPayCurrentState.isLoading) {
-            return UniPayDesignSystem.loadingIndicator();
-          } else if (provider.uniPayCurrentState.isSuccess) {
-            return builder.call(context);
-          } else {
-            return UniPayDesignSystem.errorView();
-          }
-        },
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       // extendBodyBehindAppBar: true,
+//       appBar: UniPayDesignSystem.appBar(title: title),
+//       body: Consumer<UniPayProivder>(
+//         builder: (_, provider, __) {
+//           if (provider.uniPayCurrentState.isLoading) {
+//             return UniPayDesignSystem.loadingIndicator();
+//           } else if (provider.uniPayCurrentState.isSuccess) {
+//             return builder.call(context);
+//           } else {
+//             return UniPayDesignSystem.errorView();
+//           }
+//         },
+//       ),
+//     );
+//   }
+// }

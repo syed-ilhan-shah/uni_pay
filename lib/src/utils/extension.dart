@@ -67,6 +67,13 @@ extension BuildContextExt on BuildContext {
   ///* Go previous view
   void uniPop() => Navigator.of(this).pop();
 
+  ///* Back to the parent view tree
+  void uniParentPop() {
+    if (mounted) {
+      Navigator.of(this).pop();
+    }
+  }
+
   ///* Go to next view
   void uniPush(Widget widget) =>
       Navigator.of(this).push(MaterialPageRoute(builder: (_) => widget));

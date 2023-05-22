@@ -26,7 +26,7 @@ class _PaymentResultViewState extends State<PaymentResultView> {
 //* Loading lottie file
   void _setLottieImage() async {
     AssetLottie assetLottie = AssetLottie(
-      uniPayProivder.uniPayStatus.isSuccess
+      UniPayControllers.uniPayStatus.isSuccess
           ? UniAssetsPath.success
           : UniAssetsPath.failed,
       package: UniAssetsPath.packageName,
@@ -37,29 +37,26 @@ class _PaymentResultViewState extends State<PaymentResultView> {
 
   @override
   Widget build(BuildContext context) {
-    return UniPayScaffold(
-        title: UniPayText.paymentStatus,
-        builder: (_) => SizedBox(
-              height: 85.h,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  //* Icon
-                  SizedBox(
-                    width: 100.w,
-                    height: 40.h,
-                    child: lottieComposition != null
-                        ? Lottie(
-                            composition: lottieComposition,
-                          )
-                        : const CircularProgressIndicator.adaptive(),
-                  ),
-                  SizedBox(height: 8.h),
-                  //* Title
-                  //* Subtitle
-                ],
-              ),
-            ));
+    return Scaffold(
+        appBar: UniPayDesignSystem.appBar(title: UniPayText.paymentStatus),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            //* Icon
+            SizedBox(
+              width: 100.w,
+              height: 40.h,
+              child: lottieComposition != null
+                  ? Lottie(
+                      composition: lottieComposition,
+                    )
+                  : const CircularProgressIndicator.adaptive(),
+            ),
+            SizedBox(height: 8.h),
+            //* Title
+            //* Subtitle
+          ],
+        ));
   }
 }

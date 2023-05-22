@@ -12,6 +12,7 @@ export 'src/core/models/uni_pay_customer.dart';
 export 'src/core/models/uni_pay_data.dart';
 export 'src/core/models/uni_pay_res.dart';
 export 'src/core/models/uni_pay_item.dart';
+export 'src/core/models/widget_data.dart';
 
 //* Modules
 // Tamara - Models
@@ -22,7 +23,7 @@ export 'src/modules/tamara/core/models/tamara_data.dart';
 export 'src/modules/tamara/core/services/uni_tamara.dart';
 
 // Tamara - Views
-export 'src/modules/tamara/views/tamara_pay_view.dart';
+// export 'src/modules/tamara/views/tamara_pay_view.dart';
 export 'src/modules/tamara/views/widget/tamara_split_widget.dart';
 
 // Moyasar - Models

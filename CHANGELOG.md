@@ -1,3 +1,11 @@
+## 1.0.2
+
+- We have refactored the codebase for faster transactiion and make easier to use Apple pay
+
+## 1.0.1
+
+- This is pre-release for uni_pay package included Cards, Apple Pay, and Tamara payment gateway
+
 ## 1.0.0
 
 - This is pre-release for uni_pay package included Cards, Apple Pay, and Tamara payment gateway

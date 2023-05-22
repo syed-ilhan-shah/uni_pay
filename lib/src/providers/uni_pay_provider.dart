@@ -1,67 +1,56 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:uni_pay/src/utils/extension.dart';
 import 'package:uni_pay/uni_pay.dart';
 
 import '../views/widgets/payment_result_view.dart';
 
-UniPayProivder uniPayProivder = UniPayProivder.get(uniStateKey.currentContext!);
-
-class UniPayProivder extends ChangeNotifier {
-  static UniPayProivder get(BuildContext context) =>
-      Provider.of(context, listen: false);
+class UniPayControllers {
+  UniPayControllers._();
+  static late BuildContext context;
 
   ///* Uni Pay Data to be used for payment request
-  late UniPayData uniPayData;
+  static late UniPayData uniPayData;
 
   ///* Set UniPayData
-  void setUniPayData(UniPayData uniPayData) {
-    this.uniPayData = uniPayData;
-    notifyListeners();
+  static void setUniPayData(UniPayData data, BuildContext appContext) {
+    uniPayData = data;
+    context = appContext;
   }
 
-  ///* Initialize UniPay all payment methods
-  Future initUniPay() async {
-    uniPayCurrentState = UniPayCurrentState.loading;
-
-    //* Check for Tamara checkout
-    if (uniPayData.credentials.paymentMethods
-        .contains(UniPayPaymentMethods.tamara)) {
-      tamaraCheckout = await UniTamara.generateTamaraCheckoutUrls(uniPayData);
-    }
-    //* Check for Moyasar gateway
-    uniPayCurrentState = uniPayData.credentials.paymentMethods.isTamaraGateway
-        ? tamaraCheckout != null
-            ? UniPayCurrentState.success
-            : UniPayCurrentState.failed
-        : UniPayCurrentState.success;
-    notifyListeners();
-  }
+  ///* Initialize Tamara all payment methods
+  static ValueNotifier<UniPayCurrentState> tamaraNotifier =
+      ValueNotifier<UniPayCurrentState>(UniPayCurrentState.notSpecified);
 
   ///* Tamara checkout data
-  TamaraCheckoutData? tamaraCheckout;
-  void setTamaraCheckout(TamaraCheckoutData tamaraCheckout) {
-    this.tamaraCheckout = tamaraCheckout;
-    notifyListeners();
+  static TamaraCheckoutData tamaraCheckout = TamaraCheckoutData();
+  static Future<TamaraCheckoutData?> initTamaraPay() async {
+    tamaraNotifier.value = UniPayCurrentState.loading;
+
+    //* Check for Tamara checkout
+    tamaraCheckout = await UniTamara.generateTamaraCheckoutUrls(uniPayData);
+    //* Check for Moyasar gateway
+    tamaraNotifier.value = tamaraCheckout != null
+        ? UniPayCurrentState.success
+        : UniPayCurrentState.failed;
+    return tamaraCheckout;
   }
 
   ///* State changes
   UniPayCurrentState uniPayCurrentState = UniPayCurrentState.notSpecified;
 
   ///* Uni Pay payment status
-  UniPayStatus uniPayStatus = UniPayStatus.failed;
+  static UniPayStatus uniPayStatus = UniPayStatus.failed;
 
   ///* Handle and call the callback function for payment status
-  Future handlePaymentsResponseAndCallback(BuildContext context,
+  static Future handlePaymentsResponseAndCallback(BuildContext context,
       {required UniPayResponse response}) async {
     uniPayStatus = response.status;
-    notifyListeners();
-
     context.uniPushReplacement(const PaymentResultView());
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 3));
 
+    UniPayControllers.context.uniParentPop();
     //* Success
     if (response.status.isSuccess) {
       uniPayData.onPaymentSucess.call(response);
@@ -73,9 +62,9 @@ class UniPayProivder extends ChangeNotifier {
   }
 
   ///* Payment Methods
-  UniPayPaymentMethods uniPayPaymentMethods = UniPayPaymentMethods.notSpecified;
-  void changePaymentMethod(UniPayPaymentMethods paymentMethod) {
-    uniPayPaymentMethods = paymentMethod;
-    notifyListeners();
+  static ValueNotifier<UniPayPaymentMethods> uniPayPaymentMethods =
+      ValueNotifier(UniPayPaymentMethods.notSpecified);
+  static void changePaymentMethod(UniPayPaymentMethods paymentMethod) {
+    uniPayPaymentMethods.value = paymentMethod;
   }
 }

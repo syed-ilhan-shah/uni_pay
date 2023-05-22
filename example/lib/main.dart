@@ -29,9 +29,10 @@ class _PaymentViewState extends State<PaymentView> {
   @override
   Widget build(BuildContext context) {
     return UniPay(
+      context: context,
       uniPayData: UniPayData(
         appName: "UniPay",
-        locale: UniPayLocale.ar,
+        locale: UniPayLocale.en,
         customerInfo: UniPayCustomerInfo(
           fullName: "Mohammad Saif",
           email: "example@mail.com",
@@ -40,9 +41,10 @@ class _PaymentViewState extends State<PaymentView> {
         ),
         environment: UniPayEnvironment.development,
         credentials: UniPayCredentials(
+          applePayMerchantIdentifier: "merchant.com.mystore.sa",
           paymentMethods: [
-            UniPayPaymentMethods.card,
-            UniPayPaymentMethods.applepay,
+            // UniPayPaymentMethods.card,
+            // UniPayPaymentMethods.applepay,
             UniPayPaymentMethods.tamara,
           ],
           moyasarCredential:
