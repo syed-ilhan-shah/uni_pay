@@ -5,18 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:uni_pay/src/constant/uni_text.dart';
 import 'package:uni_pay/src/core/keys/api_keys.dart';
 import 'package:uni_pay/src/core/models/uni_pay_res.dart';
+import 'package:uni_pay/src/modules/tamara/core/models/capture_response.dart';
+import 'package:uni_pay/src/modules/tamara/core/models/tamara_callback.dart';
 import 'package:uni_pay/src/utils/extension.dart';
 import 'package:uni_pay/src/utils/uni_enums.dart';
 import 'package:uni_pay/src/utils/utils.dart';
 
 import '../../../../core/models/uni_pay_data.dart';
 import '../../../../providers/uni_pay_provider.dart';
+import '../models/capture_order.dart';
 import '../models/t_checkout.dart';
 import '../models/tamara_data.dart';
 import 'package:http/http.dart' as http_client;
 
 class UniTamara {
   UniTamara._();
+  static ValueNotifier<UniPayCurrentState> currentStateNotifier =
+      ValueNotifier(UniPayCurrentState.loading);
 
   ///* Generate checkout urls for tamara
   static Future<TamaraCheckoutData> generateTamaraCheckoutUrls(
@@ -130,5 +135,67 @@ class UniTamara {
     required UniPayLocale locale,
   }) {
     return "https://cdn.tamara.co/widget/tamara-introduction.html?lang=${locale.name}&price=$price&currency=SAR&countryCode=SA&colorType=default&showBorder=true&paymentType=installment&numberOfInstallments=3&disableInstallment=false&disablePaylater=true&widgetType=product-widget";
+  }
+
+  ///* Authorise tamara order
+  static Future<TamaraCallBackResponse> authoriseAndCaptureTamaraOrder({
+    required TamaraCallBackResponse tamaraCallBackResponse,
+    required bool captureOrder,
+  }) async {
+    http_client.Response response = await http_client.post(
+      Uri.parse(
+          "${ApiKeys.tamaraVerifyOrder}/${tamaraCallBackResponse.orderId}/authorise"),
+      headers: ApiKeys.tamaraHeaders,
+    );
+
+    uniPrint("Autorise called with: ${response.body}");
+
+    if (response.statusCode.isSuccess) {
+      final data = json.decode(response.body);
+      String orderId = data["order_id"] ?? "";
+
+      UniPayStatus paymentStatus =
+          (orderId.isNotEmpty && orderId == tamaraCallBackResponse.orderId)
+              ? UniPayStatus.success
+              : UniPayStatus.failed;
+
+      if (captureOrder && paymentStatus.isSuccess) {
+        final captureResponse = await UniTamara.captureOrder(
+            tamaraCallBackResponse.tamaraCaptureOrder);
+        paymentStatus = captureResponse.paymentStatus;
+      }
+      tamaraCallBackResponse.paymentStatus = paymentStatus;
+    }
+
+    return tamaraCallBackResponse;
+  }
+
+  ///* Capture order
+  static Future<TamaraCaptureOrderResponse> captureOrder(
+      TamaraCaptureOrder tamaraCaptureOrder) async {
+    TamaraCaptureOrderResponse captureOrderResponse =
+        TamaraCaptureOrderResponse();
+
+    String bodyData = json.encode(tamaraCaptureOrder.toJson());
+    http_client.Response response = await http_client.post(
+      Uri.parse(tamaraCaptureOrder.environment.tamaraCapturePayment),
+      headers: tamaraCaptureOrder.tamaraToken.tamaraHeaders,
+      body: bodyData,
+    );
+    final data = json.decode(response.body);
+    if (response.statusCode.isSuccess) {
+      String orderId = data["order_id"] ?? "";
+      bool isSuccess =
+          orderId.isNotEmpty && orderId == tamaraCaptureOrder.orderId;
+
+      captureOrderResponse =
+          TamaraCaptureOrderResponse.fromJson(data, isSuccess);
+    } else {
+      captureOrderResponse.message = data["message"] ?? "";
+    }
+
+    uniPrint(
+        "Capture called ${captureOrderResponse.toJson()}---> ${response.body}");
+    return captureOrderResponse;
   }
 }

@@ -1,3 +1,5 @@
+import 'package:uni_pay/src/core/keys/api_keys.dart';
+
 ///* State of payment
 
 enum UniPayPaymentMethods { applepay, card, stcpay, tamara, notSpecified }
@@ -54,6 +56,12 @@ extension UniPayCurrencyExt on UniPayCurrency {
 extension UniPayEnvExt on UniPayEnvironment {
   bool get isProduction => this == UniPayEnvironment.production;
   bool get isDevelopement => this == UniPayEnvironment.development;
+
+  String get tamaraBaseUrl => isProduction
+      ? ApiKeys.tamaraProductionBaseUrl
+      : ApiKeys.tamaraBaseUrlForDev;
+
+  String get tamaraCapturePayment => "$tamaraBaseUrl/payments/capture";
 }
 
 extension UniPayCurrentStateExt on UniPayCurrentState {

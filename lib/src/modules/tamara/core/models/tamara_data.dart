@@ -74,7 +74,7 @@ class TotalAmount {
 
   TotalAmount.fromJson(Map<String, dynamic> json) {
     amount = json['amount'];
-    currency = json['currency'];
+    currency = json['currency'] ?? "SAR";
   }
 
   Map<String, dynamic> toJson() {

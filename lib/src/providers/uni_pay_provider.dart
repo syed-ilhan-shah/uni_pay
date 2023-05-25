@@ -31,7 +31,7 @@ class UniPayControllers {
     //* Check for Tamara checkout
     tamaraCheckout = await UniTamara.generateTamaraCheckoutUrls(uniPayData);
     //* Check for Moyasar gateway
-    tamaraNotifier.value = tamaraCheckout != null
+    tamaraNotifier.value = tamaraCheckout.isSuccess
         ? UniPayCurrentState.success
         : UniPayCurrentState.failed;
     return tamaraCheckout;
@@ -48,7 +48,7 @@ class UniPayControllers {
       {required UniPayResponse response}) async {
     uniPayStatus = response.status;
     context.uniPushReplacement(const PaymentResultView());
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
 
     UniPayControllers.context.uniParentPop();
     //* Success

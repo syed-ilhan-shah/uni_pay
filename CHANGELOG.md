@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Added authorization and capture order for Tamara
+
 ## 1.0.2
 
 - We have refactored the codebase for faster transactiion and make easier to use Apple pay

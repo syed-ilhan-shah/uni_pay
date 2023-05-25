@@ -4,6 +4,8 @@ import 'package:uni_pay/src/modules/tamara/views/widget/tamara_checkout_view.dar
 import 'package:uni_pay/src/views/design_system.dart';
 import 'package:uni_pay/uni_pay.dart';
 
+import '../core/models/tamara_urls.dart';
+
 class UniPayTamara extends StatefulWidget {
   const UniPayTamara({Key? key}) : super(key: key);
 
@@ -29,18 +31,21 @@ class _UniPayTamaraState extends State<UniPayTamara> {
           if (status.isLoading) {
             return UniPayDesignSystem.loadingIndicator();
           } else if (status.isSuccess && tamaraCheckout.isSuccess) {
-            final merchantUrls = UniPayControllers
-                .uniPayData.credentials.tamaraCredential!.merchantUrl;
+            final tamaraCredential =
+                UniPayControllers.uniPayData.credentials.tamaraCredential!;
+            final merchantUrls = tamaraCredential.merchantUrl;
             return TamaraCheckoutView(
               tamaraUrls: TamaraUrls(
                 checkoutUrl: tamaraCheckout.checkoutUrl,
                 successUrl: merchantUrls.success,
                 failedUrl: merchantUrls.failure,
                 cancelUrl: merchantUrls.cancel,
+                authoriseOrder: tamaraCredential.authoriseOrder,
+                captureOrder: tamaraCredential.captureOrder,
               ),
-              onPaymentSuccess: (orderId) {
+              onPaymentSuccess: (order) {
                 UniTamara.processTamaraPayment(context, UniPayStatus.success,
-                    transactionId: orderId);
+                    transactionId: order.orderId);
               },
               onPaymentFailed: () {
                 UniTamara.processTamaraPayment(context, UniPayStatus.failed);

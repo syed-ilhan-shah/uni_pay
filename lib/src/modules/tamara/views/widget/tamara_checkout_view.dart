@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:uni_pay/src/modules/tamara/core/models/tamara_callback.dart';
 import 'package:uni_pay/src/views/design_system.dart';
 import 'package:uni_pay/uni_pay.dart';
 
 import '../../../../core/keys/api_keys.dart';
+import '../../core/models/tamara_urls.dart';
 
 class TamaraCheckoutView extends StatefulWidget {
   ///* Contains the checkout url and the success, failed and cancel callbacks
   final TamaraUrls tamaraUrls;
-  final ValueChanged<String?> onPaymentSuccess;
+  final ValueChanged<TamaraCallBackResponse> onPaymentSuccess;
   final VoidCallback onPaymentFailed;
   final VoidCallback onPaymentCanceled;
   const TamaraCheckoutView(
@@ -26,8 +28,7 @@ class TamaraCheckoutView extends StatefulWidget {
 class _TamaraCheckoutViewState extends State<TamaraCheckoutView> {
   final _viewKey = GlobalKey();
   late InAppWebViewController inAppViewController;
-  final ValueNotifier<UniPayCurrentState> _currentStateNotifier =
-      ValueNotifier(UniPayCurrentState.loading);
+
   @override
   Widget build(BuildContext context) {
     final tamaraUrls = widget.tamaraUrls;
@@ -49,9 +50,23 @@ class _TamaraCheckoutViewState extends State<TamaraCheckoutView> {
                 //* Success
                 if (currentLoadedUrl.startsWith(tamaraUrls.successUrl)) {
                   actionPolicy = NavigationActionPolicy.CANCEL;
-                  String? orderId =
-                      action.request.url?.queryParameters["orderId"];
-                  widget.onPaymentSuccess.call(orderId);
+                  TamaraCallBackResponse tamaraCallBackResponse =
+                      TamaraCallBackResponse.fromMap(
+                          action.request.url!.queryParameters);
+                  if (tamaraUrls.authoriseOrder) {
+                    TamaraCallBackResponse response =
+                        await UniTamara.authoriseAndCaptureTamaraOrder(
+                            tamaraCallBackResponse: tamaraCallBackResponse,
+                            captureOrder: tamaraUrls.captureOrder);
+
+                    if (response.paymentStatus.isSuccess) {
+                      widget.onPaymentSuccess.call(response);
+                    } else {
+                      widget.onPaymentFailed.call();
+                    }
+                  } else {
+                    widget.onPaymentSuccess.call(tamaraCallBackResponse);
+                  }
                 }
                 //* Failed
                 else if (currentLoadedUrl.startsWith(tamaraUrls.failedUrl)) {
@@ -68,12 +83,13 @@ class _TamaraCheckoutViewState extends State<TamaraCheckoutView> {
             },
             onProgressChanged: (controller, progress) {
               if (progress == 100) {
-                _currentStateNotifier.value = UniPayCurrentState.success;
+                UniTamara.currentStateNotifier.value =
+                    UniPayCurrentState.success;
               }
             },
           ),
           ValueListenableBuilder(
-            valueListenable: _currentStateNotifier,
+            valueListenable: UniTamara.currentStateNotifier,
             builder: (_, state, ___) => Visibility(
                 visible: state.isLoading,
                 child: UniPayDesignSystem.loadingIndicator()),
@@ -82,18 +98,4 @@ class _TamaraCheckoutViewState extends State<TamaraCheckoutView> {
       ),
     );
   }
-}
-
-class TamaraUrls {
-  final String checkoutUrl;
-  final String successUrl;
-  final String failedUrl;
-  final String cancelUrl;
-
-  TamaraUrls({
-    required this.checkoutUrl,
-    required this.successUrl,
-    required this.failedUrl,
-    required this.cancelUrl,
-  });
 }

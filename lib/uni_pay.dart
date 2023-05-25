@@ -18,6 +18,8 @@ export 'src/core/models/widget_data.dart';
 // Tamara - Models
 export 'src/modules/tamara/core/models/t_checkout.dart';
 export 'src/modules/tamara/core/models/tamara_data.dart';
+export 'src/modules/tamara/core/models/capture_order.dart';
+export 'src/modules/tamara/core/models/capture_response.dart';
 
 // Tamara - Services
 export 'src/modules/tamara/core/services/uni_tamara.dart';
@@ -38,7 +40,6 @@ export 'src/utils/utils.dart';
 ///* Views
 export 'src/views/uni_pay_view.dart';
 
-
 //* Constants
 // export 'src/constant/locale.dart';
 // export 'src/constant/uni_text.dart';
@@ -46,3 +47,8 @@ export 'src/views/uni_pay_view.dart';
 //* Core
 // Keys
 // export 'src/core/keys/api_keys.dart';
+
+export 'src/core/services/uni_pay_services.dart';
+
+/// Models
+

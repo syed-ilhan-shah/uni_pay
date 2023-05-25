@@ -4,7 +4,7 @@
 
 name: uni_pay
 description: A library for making online payment by using Moyasar and Tamara payment gateway
-version: 1.0.2
+version: 1.0.3
 repository: https://github.com/UNICODE-Venture/uni_pay
 homepage: https://github.com/UNICODE-Venture/uni_pay
 issue_tracker: https://github.com/UNICODE-Venture/uni_pay/issues
@@ -22,9 +22,6 @@ dependencies:
 
   #* Netowrk and http calls
   http: ^0.13.6
-
-  #* State management solution
-  provider: ^6.0.5
 
   #* Moyasar payment gateway
   moyasar: ^2.0.0

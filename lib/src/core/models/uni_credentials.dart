@@ -85,17 +85,32 @@ class TamaraCredential {
   ///* Merchant `Urls` for Tamara
   late MerchantUrl merchantUrl;
 
-  TamaraCredential({required this.token, required this.merchantUrl});
+  ///* If `true` it authorise the payment
+  late bool authoriseOrder;
+
+  ///* If `true` it capture the full amount of order
+  late bool captureOrder;
+
+  TamaraCredential({
+    required this.token,
+    required this.merchantUrl,
+    this.authoriseOrder = true,
+    this.captureOrder = false,
+  });
 
   TamaraCredential.fromJson(Map<String, dynamic> json) {
     token = json['token'];
     merchantUrl = MerchantUrl.fromJson(json['merchantUrl']);
+    authoriseOrder = json['authoriseOrder'];
+    captureOrder = json['captureOrder'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['token'] = token;
     data['merchantUrl'] = merchantUrl.toJson();
+    data['authoriseOrder'] = authoriseOrder;
+    data['captureOrder'] = captureOrder;
     return data;
   }
 }

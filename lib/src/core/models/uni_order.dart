@@ -14,11 +14,15 @@ class UniPayOrder {
   ///* List of items in order
   late List<UniPayItem> items;
 
+  ///* Date of the order
+  DateTime? orderedAt;
+
   UniPayOrder({
     required this.transactionAmount,
     required this.orderId,
     required this.description,
     required this.items,
+    this.orderedAt,
   });
 
   UniPayOrder.fromJson(Map<String, dynamic> json) {
@@ -26,6 +30,7 @@ class UniPayOrder {
     orderId = json['orderId'];
     description = json['description'];
     items = json['items'].map((e) => UniPayItem.fromJson(e)).toList();
+    orderedAt = json['orderedAt'];
   }
 
   Map<String, dynamic> toJson() {
@@ -34,6 +39,7 @@ class UniPayOrder {
     data['orderId'] = orderId;
     data['description'] = description;
     data['items'] = items.map((e) => e.toJson()).toList();
+    data['orderedAt'] = orderedAt;
     return data;
   }
 }
