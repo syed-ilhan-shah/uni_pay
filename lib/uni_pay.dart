@@ -13,6 +13,7 @@ export 'src/core/models/uni_pay_data.dart';
 export 'src/core/models/uni_pay_res.dart';
 export 'src/core/models/uni_pay_item.dart';
 export 'src/core/models/widget_data.dart';
+export 'src/core/models/meta_data.dart';
 
 //* Modules
 // Tamara - Models
@@ -35,7 +36,7 @@ export 'src/providers/uni_pay_provider.dart';
 
 //* Utils
 export 'src/utils/uni_enums.dart';
-export 'src/utils/utils.dart';
+// export 'src/utils/utils.dart';
 
 ///* Views
 export 'src/views/uni_pay_view.dart';

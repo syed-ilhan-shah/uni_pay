@@ -43,14 +43,14 @@ class _PaymentViewState extends State<PaymentView> {
         credentials: UniPayCredentials(
           applePayMerchantIdentifier: "merchant.com.mystore.sa",
           paymentMethods: [
-            // UniPayPaymentMethods.card,
-            // UniPayPaymentMethods.applepay,
+            UniPayPaymentMethods.card,
+            UniPayPaymentMethods.applepay,
             UniPayPaymentMethods.tamara,
           ],
           moyasarCredential:
               MoyasarCredential(publishableKey: "pk_key", secretKey: "sk_key"),
           tamaraCredential: TamaraCredential(
-            token: "TAMARA_TOKEN",
+            token: "Bearer TAMARA_TOKEN",
             merchantUrl:
                 MerchantUrl(notification: "https://my-app.com/webhook"),
           ),
@@ -61,7 +61,11 @@ class _PaymentViewState extends State<PaymentView> {
           description: "Test Order Description",
           items: [
             UniPayItem(
-                id: "Product_ID", name: "Product name", quantity: 1, price: 50)
+              id: "Product_ID",
+              name: "Product name",
+              quantity: 1,
+              price: 50,
+            )
           ],
         ),
         onPaymentSucess: (res) {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:uni_pay/uni_pay.dart';
 
 import '../../constant/uni_text.dart';
@@ -75,6 +77,8 @@ class MoyasarCredential {
     data['secretKey'] = secretKey;
     return data;
   }
+
+  String get moyasarAuthKey => 'Basic ${base64Encode(utf8.encode(secretKey))}';
 }
 
 ///* Tamara credential

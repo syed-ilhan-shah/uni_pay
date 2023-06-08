@@ -36,9 +36,10 @@ class UniPayResponse {
         ? UniPayStatus.success
         : UniPayStatus.failed;
 
-    amount = json['amount'] ?? 0;
-    fee = json['fee'] ?? 0;
-    currency = json['currency'] ?? "";
+    amount = (json['amount'] ?? 0).toString().toNum.halalaToAmount;
+    fee = (json['fee'] ?? 0).toString().toNum.halalaToAmount;
+    currency = UniPayCurrency.sar;
+    // json['currency'] ?? ""
     description = json['description'] ?? "";
     amountFormatted = json['amount_format'] ?? "0 SAR";
     ip = json['ip'] ?? "N/A";
@@ -48,12 +49,37 @@ class UniPayResponse {
     transactionDetails = UniPayTransactionDetails.fromMap(json['source'] ?? {});
   }
 
+  UniPayResponse.fromTamara(Map<String, dynamic> json, String orderId) {
+    transactionId = json['order_id'] ?? "";
+
+    amount = (json['total_amount']['amount'] ?? 0).toString().toNum;
+
+    fee = 0;
+    currency = UniPayCurrency.sar;
+
+    description = json['description'] ?? "";
+    amountFormatted = "$amount SAR";
+    ip = "N/A";
+    createdAt = json['created_at'] ?? "";
+    invoiceId = json['order_number'] ?? "";
+
+    bool isSuccess = invoiceId.isNotEmpty &&
+        invoiceId == orderId &&
+        transactionId.isNotEmpty;
+
+    status = isSuccess ? UniPayStatus.success : UniPayStatus.notFound;
+
+    errorMessage = "N/A";
+    transactionDetails = UniPayTransactionDetails.fromTamara(
+        json['order_reference_id'] ?? invoiceId);
+  }
+
   Map<String, dynamic> toMap() => {
         'transaction_id': transactionId,
         'paymentStatus': status.index,
         'amount': amount,
         'fee': fee,
-        'currency': currency,
+        'currency': currency.name,
         'description': description,
         'amount_format': amountFormatted,
         'ip': ip,
@@ -66,17 +92,17 @@ class UniPayResponse {
 
 class UniPayTransactionDetails {
   late UniPayPaymentMethods type;
-  late String company;
   late String name;
   late String cardNumber;
+  late UniPayCardType cardType;
 
   late String message;
   late String gatewayId;
   late String referenceNumber;
 
   UniPayTransactionDetails({
-    this.type = UniPayPaymentMethods.card,
-    this.company = "",
+    this.type = UniPayPaymentMethods.notSpecified,
+    this.cardType = UniPayCardType.notSpecified,
     this.name = "",
     this.cardNumber = "",
     this.message = "",
@@ -86,7 +112,7 @@ class UniPayTransactionDetails {
 
   UniPayTransactionDetails.fromMap(Map<String, dynamic> json) {
     type = (json['type'] ?? "creditcard").toString().uniPayPaymentMethod;
-    company = json['company'] ?? "";
+    cardType = (json['company'] ?? "").toString().cardType;
     name = json['name'] ?? "N/A";
     cardNumber = json['number'] ?? "";
     message = json['message'] ?? "";
@@ -95,9 +121,18 @@ class UniPayTransactionDetails {
     referenceNumber = json['reference_number'] ?? "";
   }
 
+  UniPayTransactionDetails.fromTamara(this.referenceNumber) {
+    type = UniPayPaymentMethods.tamara;
+    cardType = UniPayCardType.tamara;
+    name = UniPayCardType.tamara.name;
+    cardNumber = "N/A";
+    message = "N/A";
+    gatewayId = "N/A";
+  }
+
   Map<String, dynamic> toMap() => {
         'type': type.index,
-        'company': company,
+        'cardType': cardType.name,
         'name': name,
         'cardNumber': cardNumber,
         'message': message,

@@ -5,6 +5,7 @@ import 'package:uni_pay/src/views/design_system.dart';
 import 'package:uni_pay/uni_pay.dart';
 
 import '../../../../core/keys/api_keys.dart';
+import '../../../../utils/utils.dart';
 import '../../core/models/tamara_urls.dart';
 
 class TamaraCheckoutView extends StatefulWidget {

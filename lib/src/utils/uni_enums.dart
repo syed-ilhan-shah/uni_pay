@@ -14,9 +14,25 @@ enum UniPayItemType { product, service, notSpecified }
 
 enum UniPayEnvironment { production, development }
 
-enum UniPayStatus { success, failed, cancelled, notSpecified }
+enum UniPayStatus { success, failed, cancelled, notSpecified, notFound }
 
 enum UniPayCurrentState { loading, success, failed, notSpecified }
+
+enum UniPayCardType {
+  mada,
+  visa,
+  mastercard,
+  amex,
+  tamara,
+  notSpecified;
+
+  bool get isMada => this == UniPayCardType.mada;
+  bool get isVisa => this == UniPayCardType.visa;
+  bool get isMastercard => this == UniPayCardType.mastercard;
+  bool get isAmex => this == UniPayCardType.amex;
+  bool get isTamara => this == UniPayCardType.tamara;
+  bool get isNotSpecified => this == UniPayCardType.notSpecified;
+}
 
 ///* Below section responsible  above enums extentions
 
@@ -62,6 +78,8 @@ extension UniPayEnvExt on UniPayEnvironment {
       : ApiKeys.tamaraBaseUrlForDev;
 
   String get tamaraCapturePayment => "$tamaraBaseUrl/payments/capture";
+  String tamaraTransactionApi(String referenceId) =>
+      "$tamaraBaseUrl/merchants/orders/reference-id/$referenceId";
 }
 
 extension UniPayCurrentStateExt on UniPayCurrentState {
@@ -76,6 +94,7 @@ extension UniPayStatusExt on UniPayStatus {
   bool get isFailed => this == UniPayStatus.failed;
   bool get isCancelled => this == UniPayStatus.cancelled;
   bool get isNotSpecified => this == UniPayStatus.notSpecified;
+  bool get isNotFound => this == UniPayStatus.notFound;
 }
 
 extension UniPayPaymentMethodsExt on UniPayPaymentMethods {

@@ -29,6 +29,8 @@ extension NumExt on num {
   ///* Convert to halala
   int get amountInHalala => (this * 100).formattedValue.toInt();
 
+  ///* Convert to amount
+  num get halalaToAmount => (this / 100).formattedValue;
   Widget get vs => SizedBox(height: rSp);
   Widget get hs => SizedBox(width: rSp);
 }
@@ -68,6 +70,24 @@ extension StringExt on String {
         HttpHeaders.contentTypeHeader: 'application/json',
         HttpHeaders.authorizationHeader: this,
       };
+
+  UniPayCardType get cardType {
+    switch (this) {
+      case "mada":
+        return UniPayCardType.mada;
+      case "visa":
+        return UniPayCardType.visa;
+      case "master":
+        return UniPayCardType.mastercard;
+      case "amex":
+        return UniPayCardType.amex;
+      default:
+        return UniPayCardType.mada;
+    }
+  }
+
+  /// To Num
+  num get toNum => num.tryParse(this) ?? 0;
 }
 
 extension BuildContextExt on BuildContext {

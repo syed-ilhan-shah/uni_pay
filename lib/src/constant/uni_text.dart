@@ -54,4 +54,7 @@ class UniPayText {
   static String get applePayMerchantIdentifierError => isEnglish
       ? "Please provide apple pay merchant identifier to proceed the payment"
       : "يرجى تقديم معرف تاجر Apple Pay لمتابعة الدفع";
+
+  static String noTransactionFound =
+      "No transaction found for the provided metadata!";
 }

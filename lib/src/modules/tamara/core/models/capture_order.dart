@@ -1,18 +1,27 @@
 import 'package:uni_pay/uni_pay.dart';
 
-class TamaraCaptureOrder {
+class TamaraApiData {
   late String tamaraToken;
   late String orderId;
-  late TotalAmount totalAmount;
-  late ShippingInfo shippingInfo;
   late UniPayEnvironment environment;
 
+  TamaraApiData({
+    this.tamaraToken = "",
+    this.orderId = "",
+    this.environment = UniPayEnvironment.development,
+  });
+}
+
+class TamaraCaptureOrder extends TamaraApiData {
+  late TotalAmount totalAmount;
+  late ShippingInfo shippingInfo;
+
   TamaraCaptureOrder({
-    required this.tamaraToken,
-    required this.orderId,
+    required super.tamaraToken,
+    required super.orderId,
     required this.totalAmount,
     required this.shippingInfo,
-    required this.environment,
+    required super.environment,
   });
 
   TamaraCaptureOrder.fromJson(Map<String, dynamic> json) {
