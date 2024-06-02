@@ -31,6 +31,7 @@ class ApiKeys {
             .uniPayData.orderInfo.transactionAmount.totalAmount.amountInHalala,
         description: UniPayControllers.uniPayData.orderInfo.description,
         applePay: ApplePayConfig(
+          manual: false,
           label: UniPayControllers.uniPayData.appName,
           merchantId: UniPayControllers
                   .uniPayData.credentials.applePayMerchantIdentifier ??

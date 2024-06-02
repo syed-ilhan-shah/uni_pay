@@ -26,7 +26,7 @@ class UniPayMoyasarGateway {
           uniPayResponse.fee = result.fee.halalaToAmount;
           uniPayResponse.status = UniPayStatus.success;
           uniPayResponse.amountFormatted = result.amountFormat;
-          uniPayResponse.ip = result.ip;
+          uniPayResponse.ip = result.ip ?? "N/A";
           uniPayResponse.createdAt = result.createdAt;
           uniPayResponse.invoiceId = result.invoiceId ?? "N/A";
           uniPayResponse.description = result.description ?? "N/A";

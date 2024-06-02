@@ -10,7 +10,7 @@ homepage: https://github.com/UNICODE-Venture/uni_pay
 issue_tracker: https://github.com/UNICODE-Venture/uni_pay/issues
 
 environment:
-  sdk: ">=2.19.6 <3.0.0"
+  sdk: ">=2.18.0 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
@@ -21,13 +21,13 @@ dependencies:
     sdk: flutter
 
   #* Netowrk and http calls
-  http: ^0.13.6
+  http: ^1.2.0
 
   #* Moyasar payment gateway
   moyasar: ^2.0.0
 
   #* UI and UX related
-  lottie: ^2.3.2
+  lottie: ^3.1.2
 
   #* Webview
   flutter_inappwebview: ^5.7.2+3

@@ -1,8 +1,9 @@
 # This is a generated file; do not edit or check into version control.
-flutter_inappwebview=/Users/mohammadsaif/.pub-cache/hosted/pub.dev/flutter_inappwebview-5.7.2+3/
-pay=/Users/mohammadsaif/.pub-cache/hosted/pub.dev/pay-1.1.1/
-pay_android=/Users/mohammadsaif/.pub-cache/hosted/pub.dev/pay_android-1.0.10/
-pay_ios=/Users/mohammadsaif/.pub-cache/hosted/pub.dev/pay_ios-1.0.8/
-webview_flutter=/Users/mohammadsaif/.pub-cache/hosted/pub.dev/webview_flutter-4.2.0/
-webview_flutter_android=/Users/mohammadsaif/.pub-cache/hosted/pub.dev/webview_flutter_android-3.7.0/
-webview_flutter_wkwebview=/Users/mohammadsaif/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.4.3/
+flutter_inappwebview=/Users/abdullahahmed/.pub-cache/hosted/pub.dev/flutter_inappwebview-5.8.0/
+moyasar=/Users/abdullahahmed/.pub-cache/hosted/pub.dev/moyasar-2.0.10/
+pay=/Users/abdullahahmed/.pub-cache/hosted/pub.dev/pay-2.0.0/
+pay_android=/Users/abdullahahmed/.pub-cache/hosted/pub.dev/pay_android-2.0.0/
+pay_ios=/Users/abdullahahmed/.pub-cache/hosted/pub.dev/pay_ios-1.0.11/
+webview_flutter=/Users/abdullahahmed/.pub-cache/hosted/pub.dev/webview_flutter-4.8.0/
+webview_flutter_android=/Users/abdullahahmed/.pub-cache/hosted/pub.dev/webview_flutter_android-3.16.3/
+webview_flutter_wkwebview=/Users/abdullahahmed/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.13.1/
