@@ -1,6 +1,10 @@
+## 1.1.5
+
+- Update Dependencies
+
 ## 1.1.4
 
-- Added Dependencies
+- Update Dependencies
 
 ## 1.1.3
 
