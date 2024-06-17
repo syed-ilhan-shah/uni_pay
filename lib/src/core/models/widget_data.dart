@@ -8,6 +8,7 @@ class WidgetData {
   final UniPayLocale locale;
   final Color? activeColor;
   final num? totalAmount;
+  final UniPayCurrency currency;
 
   WidgetData({
     required this.currentStatus,
@@ -15,5 +16,6 @@ class WidgetData {
     required this.locale,
     this.activeColor,
     this.totalAmount,
+    this.currency = UniPayCurrency.sar,
   });
 }

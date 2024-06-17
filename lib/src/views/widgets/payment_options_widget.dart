@@ -19,17 +19,20 @@ class UniPaymentOptionWidget extends StatelessWidget {
   final UniPayPaymentMethods uniPayPaymentMethods;
   final VoidCallback? onLearnMorePressed;
 
-  const UniPaymentOptionWidget({
-    Key? key,
-    required this.title,
-    required this.subTitle,
-    required this.image,
-    required this.currentStatus,
-    required this.onChange,
-    this.activeColor,
-    required this.uniPayPaymentMethods,
-    this.onLearnMorePressed,
-  }) : super(key: key);
+  final Widget? subTitleWidget;
+
+  const UniPaymentOptionWidget(
+      {Key? key,
+      required this.title,
+      required this.subTitle,
+      required this.image,
+      required this.currentStatus,
+      required this.onChange,
+      this.activeColor,
+      required this.uniPayPaymentMethods,
+      this.onLearnMorePressed,
+      this.subTitleWidget})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,42 +64,52 @@ class UniPaymentOptionWidget extends StatelessWidget {
                       style: UniPayTheme.uniPayStyle,
                     ),
                     2.vs,
-                    RichText(
-                      text: TextSpan(
-                          text: "$subTitle ",
-                          style: UniPayTheme.uniPayStyle.copyWith(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 10.rSp,
-                            color: UniPayColorsPalletes.greyTextColor,
-                          ),
-                          children: [
-                            if (onLearnMorePressed != null)
-                              TextSpan(
-                                text: UniPayText.learnMore,
-                                style: UniPayTheme.uniPayStyle.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                  color: UniPayColorsPalletes.primaryColor,
-                                  fontSize: 10.rSp,
-                                  decoration: TextDecoration.underline,
-                                ),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = onLearnMorePressed,
-                              )
-                          ]),
-                    )
+                    if (subTitleWidget != null)
+                      subTitleWidget!
+                    else
+                      RichText(
+                        text: TextSpan(
+                            text: "$subTitle ",
+                            style: UniPayTheme.uniPayStyle.copyWith(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 10.rSp,
+                              color: UniPayColorsPalletes.greyTextColor,
+                            ),
+                            children: [
+                              if (onLearnMorePressed != null)
+                                TextSpan(
+                                  text: UniPayText.learnMore,
+                                  style: UniPayTheme.uniPayStyle.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    color: UniPayColorsPalletes.primaryColor,
+                                    fontSize: 10.rSp,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = onLearnMorePressed,
+                                )
+                            ]),
+                      )
                   ],
                 ),
               ),
               10.hs,
 
-              //* Tamara logo
-              Image.asset(
-                "${UniAssetsPath.images}/$image.png",
-                fit: BoxFit.contain,
-                width: uniPayPaymentMethods.isTamara ? 39.rSp : 100.rw,
-                height: uniPayPaymentMethods.isTamara ? 39.rSp : 40.rh,
-                package: UniAssetsPath.packageName,
-              ),
+              //* Payment provider logo
+              Visibility(
+                visible: !uniPayPaymentMethods.isTabby,
+                child: Image.asset(
+                  "${UniAssetsPath.images}/$image.png",
+                  fit: BoxFit.contain,
+                  width: uniPayPaymentMethods.isTamara
+                      ? 39.rSp
+                      : uniPayPaymentMethods.isTabby
+                          ? 55.rw
+                          : 100.rw,
+                  height: uniPayPaymentMethods.isTamara ? 39.rSp : 40.rh,
+                  package: UniAssetsPath.packageName,
+                ),
+              )
             ],
           ),
         ),

@@ -21,7 +21,9 @@ class UniPayDesignSystem {
         leading: leading ??
             BackButton(
               color: UniPayColorsPalletes.black,
-              onPressed: () => UniPayControllers.context.uniParentPop(),
+              onPressed: () =>
+                  (uniStateKey.currentContext ?? UniPayControllers.context)
+                      .uniParentPop(),
             ),
         flexibleSpace: GlassMorphism(
           sigmaVal: 5,
@@ -47,7 +49,8 @@ class UniPayDesignSystem {
       );
 
   ///* Error View
-  static Widget errorView({String? title, dynamic subTitle}) => Center(
+  static Widget errorView({String? title, dynamic subTitle}) => Container(
+        padding: const EdgeInsets.all(30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,6 +58,7 @@ class UniPayDesignSystem {
             Text(
               title ?? UniPayText.somethingWentWrong,
               style: UniPayTheme.uniPayStyle,
+              textAlign: TextAlign.center,
             ),
             if (subTitle != null) ...[
               10.vs,

@@ -6,6 +6,7 @@ import 'package:uni_pay/src/utils/extension.dart';
 import '../../uni_pay.dart';
 import '../constant/uni_text.dart';
 import '../modules/applepay/uni_apple_pay.dart';
+import '../modules/tabby/views/widgets/tabbly_payment.dart';
 import '../modules/tamara/views/tamara_pay_view.dart';
 import 'design_system.dart';
 
@@ -29,6 +30,10 @@ class _UniPayGatewayViewState extends State<UniPayGatewayView> {
     return ValueListenableBuilder(
         valueListenable: UniPayControllers.uniPayPaymentMethods,
         builder: (context, uniPayPaymentMethods, __) {
+          final transactionInfo =
+              UniPayControllers.uniPayData.orderInfo.transactionAmount;
+          final paymentMethods =
+              UniPayControllers.uniPayData.credentials.paymentMethods;
           return Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -36,11 +41,12 @@ class _UniPayGatewayViewState extends State<UniPayGatewayView> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ///* Apple Pay View
-                const UniPayApplePay(),
+                /// Apple Pay View
+                const UniApplePay(),
+
                 30.vs,
 
-                ///* Moyasar View
+                // Moyasar View
                 CardPaymentWidget(
                   widgetData: WidgetData(
                     currentStatus: uniPayPaymentMethods.isCard,
@@ -49,34 +55,57 @@ class _UniPayGatewayViewState extends State<UniPayGatewayView> {
                         UniPayPaymentMethods.card),
                   ),
                 ),
-                const Divider(),
 
-                ///* Tamara View
-                TamaraSplitPlanWidget(
-                  widgetData: WidgetData(
-                    currentStatus: uniPayPaymentMethods.isTamara,
-                    locale: UniPayControllers.uniPayData.locale,
-                    totalAmount: UniPayControllers
-                        .uniPayData.orderInfo.transactionAmount.totalAmount,
-                    onChange: (s) => UniPayControllers.changePaymentMethod(
-                        UniPayPaymentMethods.tamara),
+                // Tamara View
+                if (paymentMethods.isTamaraGateway) ...[
+                  const Divider(),
+                  TamaraSplitPlanWidget(
+                    widgetData: WidgetData(
+                      currentStatus: uniPayPaymentMethods.isTamara,
+                      locale: UniPayControllers.uniPayData.locale,
+                      totalAmount: UniPayControllers
+                          .uniPayData.orderInfo.transactionAmount.totalAmount,
+                      onChange: (s) => UniPayControllers.changePaymentMethod(
+                          UniPayPaymentMethods.tamara),
+                    ),
                   ),
-                ),
+                ],
+
+                // Tabby View
+
+                if (paymentMethods.isTabbyGateway) ...[
+                  const Divider(),
+                  TabbySplitPlanWidget(
+                    widgetData: WidgetData(
+                      currentStatus: uniPayPaymentMethods.isTabby,
+                      locale: UniPayControllers.uniPayData.locale,
+                      totalAmount: UniPayControllers
+                          .uniPayData.orderInfo.transactionAmount.totalAmount,
+                      onChange: (s) => UniPayControllers.changePaymentMethod(
+                          UniPayPaymentMethods.tabby),
+                    ),
+                  ),
+                ],
                 const Spacer(),
 
-                //* Pay Now Button
+                // Pay Now Button
                 UniPayDesignSystem.primaryButton(
                   isBottomBarButton: true,
                   isDisabled: uniPayPaymentMethods.isNotSpecified,
-                  title: UniPayText.payNow,
+                  title:
+                      "${UniPayText.payNow} (${"${uniPayPaymentMethods.payNowAmount(transactionInfo.totalAmount)} ${transactionInfo.currency.currencyCode}"})",
                   onPressed: () {
-                    //* Go to Tamara view
+                    // Go to Tamara view
                     if (uniPayPaymentMethods.isTamara) {
-                      context.uniPushReplacement(const UniPayTamara());
+                      context.uniPush(const UniPayTamara());
                     }
-                    //* Go to Moyasar view
+                    // Go to Tabby view
+                    else if (uniPayPaymentMethods.isTabby) {
+                      context.uniPush(const UniPayTabby());
+                    }
+                    // Go to Moyasar view
                     else if (uniPayPaymentMethods.isCard) {
-                      context.uniPushReplacement(const UniPayCard());
+                      context.uniPush(const UniPayCard());
                     }
                   },
                 ),

@@ -3,19 +3,20 @@
 # https://github.com/mohammadsaif19
 
 name: uni_pay
-description: A library for making online payment by using Moyasar and Tamara payment gateway
-version: 1.1.5
+description: A library for making online payment by using Moyasar, Tamara, and Tabby payment gateway.
+version: 2.0.0
 repository: https://github.com/UNICODE-Venture/uni_pay
 homepage: https://github.com/UNICODE-Venture/uni_pay
 issue_tracker: https://github.com/UNICODE-Venture/uni_pay/issues
 
 environment:
-  sdk: ">=2.18.0 <4.0.0"
+  sdk: ">=3.3.2 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
+
   #* Localizations
   flutter_localizations:
     sdk: flutter
@@ -24,10 +25,13 @@ dependencies:
   http: ^1.2.0
 
   #* Moyasar payment gateway
-  moyasar: ^2.0.0
+  moyasar: ^2.0.11
 
   #* UI and UX related
   lottie: ^3.1.2
+
+  #* Tabby payment gateway
+  tabby_flutter_inapp_sdk: ^1.4.0
 
   #* Webview
   flutter_inappwebview: ^5.7.2+3

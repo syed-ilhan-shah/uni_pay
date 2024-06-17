@@ -1,3 +1,10 @@
+## 2.0.0
+
+- Standalone Apple Pay Integration: We have added support for standalone Apple Pay transactions. Now, you can easily invoke the UniApplePay widget to display and handle Apple Pay payments anywhere within your app.
+- Tabby Integration: We have integrated Tabby, enabling seamless and unified payment processing for all transactions in your app.
+
+These enhancements improve the flexibility and efficiency of your app's payment system, providing a better user experience.
+
 ## 1.1.5
 
 - Update Dependencies

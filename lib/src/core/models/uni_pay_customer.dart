@@ -13,12 +13,16 @@ class UniPayCustomerInfo {
   ///* Customer address
   late UniPayAddress address;
 
+  ///* Customer joined date
+  late DateTime joinedAtDate;
+
   UniPayCustomerInfo({
     required this.fullName,
     required this.phoneNumber,
     this.email = "",
     required this.address,
-  });
+    DateTime? joinedAtDate,
+  }) : joinedAtDate = joinedAtDate ?? DateTime.now();
 
   UniPayCustomerInfo.fromJson(Map<String, dynamic> data) {
     fullName = data['fullName'];

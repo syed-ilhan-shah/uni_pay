@@ -27,54 +27,84 @@ class PaymentView extends StatefulWidget {
 
 class _PaymentViewState extends State<PaymentView> {
   @override
+  void initState() {
+    super.initState();
+    // Initialize UniPay can be now also be done by calling this method
+    // UniPayServices.initUniPay(uniPayData: uniPayData, context: context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return UniPay(
       context: context,
-      uniPayData: UniPayData(
-        appName: "UniPay",
-        locale: UniPayLocale.en,
-        customerInfo: UniPayCustomerInfo(
-          fullName: "Mohammad Saif",
-          email: "example@mail.com",
-          phoneNumber: "+966555666777",
-          address: UniPayAddress(addressName: "Test Address", city: "Riyadh"),
-        ),
-        environment: UniPayEnvironment.development,
-        credentials: UniPayCredentials(
-          applePayMerchantIdentifier: "merchant.com.mystore.sa",
-          paymentMethods: [
-            UniPayPaymentMethods.card,
-            UniPayPaymentMethods.applepay,
-            UniPayPaymentMethods.tamara,
-          ],
-          moyasarCredential:
-              MoyasarCredential(publishableKey: "pk_key", secretKey: "sk_key"),
-          tamaraCredential: TamaraCredential(
-            token: "Bearer test",
-            merchantUrl:
-                MerchantUrl(notification: "https://my-app.com/webhook"),
-          ),
-        ),
-        orderInfo: UniPayOrder(
-          transactionAmount: TransactionAmount(totalAmount: 150.55),
-          orderId: DateTime.now().millisecondsSinceEpoch.toString(),
-          description: "Test Order Description",
-          items: [
-            UniPayItem(
-              id: "Product_ID",
-              name: "Product name",
-              quantity: 1,
-              price: 50,
-            )
-          ],
-        ),
-        onPaymentSucess: (res) {
-          debugPrint("Payment Success ----> ${res.toMap()}");
-        },
-        onPaymentFailed: (res) {
-          debugPrint("Payment Failed ----> ${res.toMap()}");
-        },
+      uniPayData: uniPayData,
+    );
+    // return _applePayOnlyView();
+  }
+
+// To show the Apple Pay only view
+  Widget _applePayOnlyView() {
+    return Scaffold(
+      appBar: AppBar(title: const Text("UniPay Example")),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          UniApplePay(context: context),
+        ],
       ),
     );
   }
 }
+
+/// UniPayData to be used for payment request
+UniPayData uniPayData = UniPayData(
+  appName: "UniPay",
+  locale: UniPayLocale.en,
+  customerInfo: UniPayCustomerInfo(
+    fullName: "Mohammad Saif",
+    email: "example@mail.com",
+    phoneNumber: "+966555666777",
+    address: UniPayAddress(
+      addressName: "Olaya street, Al Ghadir",
+      city: "Riyadh",
+    ),
+  ),
+  environment: UniPayEnvironment.development,
+  credentials: UniPayCredentials(
+    applePayMerchantIdentifier: "merchant.com.myapp.sa",
+    paymentMethods: [
+      UniPayPaymentMethods.card,
+      UniPayPaymentMethods.applepay,
+      UniPayPaymentMethods.tamara,
+      UniPayPaymentMethods.tabby,
+    ],
+    moyasarCredential: MoyasarCredential(
+      publishableKey: "pk_test",
+      secretKey: "sk_test",
+    ),
+    tamaraCredential: TamaraCredential(
+      token: "Bearer test",
+      merchantUrl: MerchantUrl(notification: "https://my-app.com/webhook"),
+    ),
+    tabbyCredential: TabbyCredential(psKey: "pk_test"),
+  ),
+  orderInfo: UniPayOrder(
+    transactionAmount: TransactionAmount(totalAmount: 150.55),
+    orderId: DateTime.now().millisecondsSinceEpoch.toString(),
+    description: "Test Order Description",
+    items: [
+      UniPayItem(
+        id: "Product_ID",
+        name: "Product name",
+        quantity: 1,
+        price: 50,
+      )
+    ],
+  ),
+  onPaymentSucess: (res) {
+    debugPrint("Payment Success ----> ${res.toMap()}");
+  },
+  onPaymentFailed: (res) {
+    debugPrint("Payment Failed ----> ${res.toMap()}");
+  },
+);

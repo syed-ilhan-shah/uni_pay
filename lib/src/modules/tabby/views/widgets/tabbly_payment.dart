@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:uni_pay/src/modules/tabby/core/services/tabby_services.dart';
 import 'package:uni_pay/src/utils/extension/size_extension.dart';
 import 'package:uni_pay/src/views/widgets/payment_options_widget.dart';
 import 'package:uni_pay/uni_pay.dart';
 
 import '../../../../constant/uni_text.dart';
-import 'learn_more_widget.dart';
 
-class TamaraSplitPlanWidget extends StatelessWidget {
+class TabbySplitPlanWidget extends StatelessWidget {
   final WidgetData widgetData;
-  const TamaraSplitPlanWidget({Key? key, required this.widgetData})
+  const TabbySplitPlanWidget({Key? key, required this.widgetData})
       : super(key: key);
 
   @override
@@ -16,22 +16,20 @@ class TamaraSplitPlanWidget extends StatelessWidget {
     ScreenSizes.init(context);
     UniPayText.isEnglish = widgetData.locale.isEnglish;
     return UniPaymentOptionWidget(
-      title: UniPayText.tamaraSplitBill,
-      subTitle: UniPayText.tamaraSplitBillSubTitle,
-      image: "tamara",
+      title: UniPayText.tabbySplitBill,
+      subTitle: "",
+      image: "tabby",
       currentStatus: widgetData.currentStatus,
       onChange: widgetData.onChange,
       activeColor: widgetData.activeColor,
-      uniPayPaymentMethods: UniPayPaymentMethods.tamara,
-      onLearnMorePressed: () {
-        showDialog(
-          context: context,
-          builder: (_) => LearnMoreTamaraWidget(
-            totalAmount: widgetData.totalAmount ?? 0,
-            locale: widgetData.locale,
-          ),
-        );
-      },
+      uniPayPaymentMethods: UniPayPaymentMethods.tabby,
+      subTitleWidget: TabbyServices.showTabbySnippet(
+        tabbySnippet: TabbySnippet(
+          totalAmountWithVat: widgetData.totalAmount ?? 0,
+          currency: widgetData.currency,
+          locale: widgetData.locale,
+        ),
+      ),
     );
   }
 }

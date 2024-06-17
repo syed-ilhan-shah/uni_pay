@@ -18,16 +18,22 @@ class UniPayCredentials {
   ///* Apple pay merchant identifier
   late String? applePayMerchantIdentifier;
 
+  ///* Tabby credentials
+  late TabbyCredential? tabbyCredential;
+
   UniPayCredentials({
     required this.paymentMethods,
     this.moyasarCredential,
     this.tamaraCredential,
     this.applePayMerchantIdentifier,
+    this.tabbyCredential,
   })  : assert(
             paymentMethods.isMoyasarGateway ? moyasarCredential != null : true,
             UniPayText.pleaseProvideMoyasarCredentails),
         assert(paymentMethods.isTamaraGateway ? tamaraCredential != null : true,
             UniPayText.pleaseProvideTamaraCredentails),
+        assert(paymentMethods.isTabbyGateway ? tabbyCredential != null : true,
+            UniPayText.pleaseProvideTabbyCredentails),
         assert(paymentMethods.isNotEmpty, UniPayText.noGatewayProvided),
         assert(moyasarCredential != null || tamaraCredential != null,
             UniPayText.pleaseProvideCredentials),
@@ -89,10 +95,10 @@ class TamaraCredential {
   ///* Merchant `Urls` for Tamara
   late MerchantUrl merchantUrl;
 
-  ///* If `true` it authorise the payment
+  ///* If `true` it authorise the payment automatically after successful payment
   late bool authoriseOrder;
 
-  ///* If `true` it capture the full amount of order
+  ///* If `true` it capture the full amount of order automatically after successful payment
   late bool captureOrder;
 
   TamaraCredential({

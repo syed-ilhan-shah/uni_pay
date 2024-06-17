@@ -81,6 +81,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
+  fixnum:
+    dependency: transitive
+    description:
+      name: fixnum
+      sha256: "25517a4deb0c03aa0f32fd12db525856438902d9c16536311e76cdc57b31d7d1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -212,10 +220,10 @@ packages:
     dependency: transitive
     description:
       name: moyasar
-      sha256: "5e857ff9ac1906291f8270e85d88377d3ba5b36153c5a063c19aeea58fd4484e"
+      sha256: bb460033fcce39d4085a0ac9dffe935b1165e657d479b01bcbf4ebc5f5f62f29
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.10"
+    version: "2.0.11"
   path:
     dependency: transitive
     description:
@@ -285,6 +293,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
+  sprintf:
+    dependency: transitive
+    description:
+      name: sprintf
+      sha256: "1fc9ffe69d4df602376b52949af107d8f5703b77cda567c4d7d86a0693120f23"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.0"
   stack_trace:
     dependency: transitive
     description:
@@ -309,6 +325,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  tabby_flutter_inapp_sdk:
+    dependency: transitive
+    description:
+      name: tabby_flutter_inapp_sdk
+      sha256: c678ba9f973c63792e422b3a13fdc7edd34cce0a342757c52357ae3109006ad8
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.0"
   term_glyph:
     dependency: transitive
     description:
@@ -339,7 +363,15 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.1.5"
+    version: "2.0.0"
+  uuid:
+    dependency: transitive
+    description:
+      name: uuid
+      sha256: "814e9e88f21a176ae1359149021870e87f7cddaf633ab678a5d2b0bff7fd1ba8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.4.0"
   vector_math:
     dependency: transitive
     description:
@@ -405,5 +437,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.3.0 <4.0.0"
+  dart: ">=3.3.2 <4.0.0"
   flutter: ">=3.18.0-18.0.pre.54"

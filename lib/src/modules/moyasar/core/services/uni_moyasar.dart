@@ -64,7 +64,7 @@ class UniPayMoyasarGateway {
         uniPayResponse.errorMessage = UniPayText.paymentFailed;
       }
 
-      UniPayControllers.handlePaymentsResponseAndCallback(context,
+      return UniPayControllers.handlePaymentsResponseAndCallback(context,
           response: uniPayResponse);
     }
   }

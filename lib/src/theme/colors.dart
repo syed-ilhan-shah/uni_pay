@@ -8,8 +8,8 @@ class UniPayColorsPalletes {
   static Color transparent = Colors.transparent;
   static Color white = Colors.white;
   static Color greyTextColor = const Color(0xFF808080);
-  static MaterialStatePropertyAll<Color> transparentMaterialColor =
-      MaterialStatePropertyAll<Color>(UniPayColorsPalletes.transparent);
+  static WidgetStatePropertyAll<Color> transparentMaterialColor =
+      WidgetStatePropertyAll<Color>(UniPayColorsPalletes.transparent);
   static Color fillColor = const Color(0xFFF5F5F5);
 }
 
@@ -21,7 +21,7 @@ class UniPayTheme {
     fontFamily: fontFamily,
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
-        overlayColor: MaterialStateProperty.all<Color>(Colors.transparent),
+        overlayColor: WidgetStateProperty.all<Color>(Colors.transparent),
       ),
     ),
     appBarTheme:

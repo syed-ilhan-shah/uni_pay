@@ -7,6 +7,12 @@ import 'package:uni_pay/uni_pay.dart';
 import '../core/models/tamara_urls.dart';
 
 class UniPayTamara extends StatefulWidget {
+  /// A view to process payment using Tamara payment gateway
+  ///
+  /// If you wish to use it as a standalone view,
+  ///
+  /// then kindly call `UniPayServices.initUniPay()` first before using this widget.
+
   const UniPayTamara({Key? key}) : super(key: key);
 
   @override

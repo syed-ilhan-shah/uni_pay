@@ -3,7 +3,7 @@ import 'package:uni_pay/src/utils/extension.dart';
 
 import '../../../uni_pay.dart';
 import '../../modules/moyasar/views/uni_pay_moyasar_view.dart';
-import '../../modules/tamara/views/tamara_pay_view.dart';
+
 import '../../utils/extension/size_extension.dart';
 import '../design_system.dart';
 import '../uni_pay_all_view.dart';
@@ -30,21 +30,32 @@ class _UniPayViewHandlerState extends State<UniPayViewHandler> {
   Future _viewHandler() async {
     ScreenSizes.init(context);
 
-    final uniPayData = UniPayControllers.uniPayData;
+    // Get the payment data
+    UniPayData uniPayData = UniPayControllers.uniPayData;
+
+    // Payment methods requested by client
+    List<UniPayPaymentMethods> paymentMethods =
+        uniPayData.credentials.paymentMethods;
+
+    bool isSingleGatewayPayment = paymentMethods.length == 1;
 
     // Case 1:  Tamara checkout
-    if (uniPayData.credentials.paymentMethods.length == 1 &&
-        uniPayData.credentials.paymentMethods.first.isTamara) {
+    if (isSingleGatewayPayment && paymentMethods.first.isTamara) {
       context.uniPushReplacement(const UniPayTamara());
     }
-    // Case 2: Moyasar checkout
-    else if ((uniPayData.credentials.paymentMethods.length == 1 &&
-            uniPayData.credentials.paymentMethods.first.isMoyasar) ||
-        (uniPayData.credentials.paymentMethods.length == 2 &&
-            !uniPayData.credentials.paymentMethods.isTamaraGateway)) {
+
+    // Case 2:  Tabby checkout
+    else if (isSingleGatewayPayment && paymentMethods.first.isTabby) {
+      context.uniPushReplacement(const UniPayTabby());
+    }
+    // Case 3: Moyasar checkout
+    else if ((isSingleGatewayPayment && paymentMethods.first.isMoyasar) ||
+        (paymentMethods.length == 2 &&
+            !paymentMethods.isTamaraGateway &&
+            !paymentMethods.isTabbyGateway)) {
       context.uniPushReplacement(const UniPayCard());
     }
-    // Case 3: All payment methods
+    // Case 4: All payment methods
     else {
       context.uniPushReplacement(const UniPayGatewayView());
     }

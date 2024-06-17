@@ -21,10 +21,21 @@ class UniPayText {
   static String get checkoutByTamara =>
       isEnglish ? "Checkout by Tamara" : "الدفع عبر تمارا";
 
+  static String get checkoutByTabby =>
+      isEnglish ? "Checkout by Tabby" : "الدفع عبر تابي";
+
+  static String get tabbyErrorMsg => isEnglish
+      ? "Your payment request has been declined by Tabby, kindly try again later."
+      : "تم رفض طلب الدفع الخاص بك من قبل Tabby ، يرجى المحاولة مرة أخرى في وقت لاحق.";
+
   static String pleaseProvideCredentials =
       "Please provide payment gateway secret credentials to proceed the payment";
   static String pleaseProvideTamaraCredentails =
       "Please provide Tamara secret credentials to proceed the payment";
+
+  static String pleaseProvideTabbyCredentails =
+      "Please provide Tabby secret credentials to proceed the payment";
+
   static String pleaseProvideMoyasarCredentails =
       "Please provide Moyasar secret credentials to proceed the payment";
   static String noGatewayProvided =
@@ -42,6 +53,10 @@ class UniPayText {
   static String get tamaraSplitBillSubTitle => isEnglish
       ? "Pay a fraction of your total now and the rest over time, No hidden fees, no interest!"
       : "ادفع جزء من المبلغ الآن والباقي على حسب خطة الدفع, بدون فوائد ورسوم خفية!";
+
+  ///* Tabby ----------
+  static String get tabbySplitBill =>
+      isEnglish ? "Tabby: Pay in 4 installments" : "تابي: ادفع على 4 دفعات";
 
   ///* Card
 

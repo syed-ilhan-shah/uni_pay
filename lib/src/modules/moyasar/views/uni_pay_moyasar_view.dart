@@ -23,8 +23,10 @@ class _UniPayCardState extends State<UniPayCard> {
       body: ListView(
         padding: EdgeInsets.all(20.rSp),
         children: [
-          const UniPayApplePay(),
+          // Apple pay
+          const UniApplePay(),
           SizedBox(height: 20.rh),
+          // Moyasar card payment
           Directionality(
             textDirection: TextDirection.ltr,
             child: CreditCard(

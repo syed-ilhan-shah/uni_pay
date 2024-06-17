@@ -7,8 +7,34 @@ import 'package:uni_pay/src/utils/extension/size_extension.dart';
 import '../../../uni_pay.dart';
 import '../../core/keys/api_keys.dart';
 
-class UniPayApplePay extends StatelessWidget {
-  const UniPayApplePay({Key? key}) : super(key: key);
+class UniApplePay extends StatefulWidget {
+  /// Uni Apple Pay Widget - You can pass the `context` and `UniPayData` to the widget directly
+  ///
+  /// or you may call `UniPayServices.initUniPay()` before using this widget to initialize the `UniPay` module
+  /// both ways are valid and will work as expected
+
+  const UniApplePay({Key? key, this.context, this.uniPayData})
+      : super(key: key);
+
+  /// Provide the context of the app
+  final BuildContext? context;
+
+  /// Uni Pay Data to be used for payment request
+  final UniPayData? uniPayData;
+
+  @override
+  State<UniApplePay> createState() => _UniApplePayState();
+}
+
+class _UniApplePayState extends State<UniApplePay> {
+  @override
+  void initState() {
+    super.initState();
+    // Init UniPay with the order details payment gateway credentials before making Apple pay request
+    if (widget.uniPayData != null && widget.context != null) {
+      UniPayControllers.setUniPayData(widget.uniPayData!, widget.context!);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
