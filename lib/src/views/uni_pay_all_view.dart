@@ -5,9 +5,7 @@ import 'package:uni_pay/src/utils/extension.dart';
 
 import '../../uni_pay.dart';
 import '../constant/uni_text.dart';
-import '../modules/applepay/uni_apple_pay.dart';
 import '../modules/tabby/views/widgets/tabbly_payment.dart';
-import '../modules/tamara/views/tamara_pay_view.dart';
 import 'design_system.dart';
 
 class UniPayGatewayView extends StatefulWidget {

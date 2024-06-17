@@ -4,10 +4,15 @@
 
 name: uni_pay
 description: A library for making online payment by using Moyasar, Tamara, and Tabby payment gateway.
-version: 2.0.0
+version: 2.0.1
 repository: https://github.com/UNICODE-Venture/uni_pay
 homepage: https://github.com/UNICODE-Venture/uni_pay
 issue_tracker: https://github.com/UNICODE-Venture/uni_pay/issues
+
+# This package supports all platforms listed below.
+platforms:
+  android:
+  ios:
 
 environment:
   sdk: ">=3.3.2 <4.0.0"
