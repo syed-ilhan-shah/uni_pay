@@ -1,10 +1,21 @@
+import 'package:flutter/material.dart';
 import 'package:uni_pay/src/core/keys/api_keys.dart';
+
+import '../constant/locale.dart';
 
 ///* State of payment
 
 enum UniPayPaymentMethods { applepay, card, stcpay, tamara, notSpecified }
 
-enum UniPayLocale { ar, en }
+enum UniPayLocale {
+  ar,
+  en;
+
+  /// Get current locale `ar_SA` or `en_US`
+  Locale get currentLocale => this == UniPayLocale.ar
+      ? LocalizationsData.supportLocale.first
+      : LocalizationsData.supportLocale.last;
+}
 
 enum UniPayCountry { sa }
 

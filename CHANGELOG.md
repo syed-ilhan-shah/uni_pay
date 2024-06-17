@@ -6,6 +6,10 @@
 
 - Update Dependencies
 
+## 1.1.4
+
+- Added method to check tamara transaction information by ref id and fixes card type bugs
+
 ## 1.1.3
 
 - Added method to check tamara transaction information by ref id and fixes card type bugs

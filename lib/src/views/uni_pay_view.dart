@@ -43,9 +43,7 @@ class _UniPayState extends State<UniPay> {
       localizationsDelegates: LocalizationsData.localizationsDelegate,
       supportedLocales: LocalizationsData.supportLocale,
       theme: UniPayTheme.theme,
-      locale: UniPayText.isEnglish
-          ? LocalizationsData.supportLocale.last
-          : LocalizationsData.supportLocale.first,
+      locale: uniPayData.locale.currentLocale,
       home: const UniPayViewHandler(),
     );
   }

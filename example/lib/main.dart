@@ -50,7 +50,7 @@ class _PaymentViewState extends State<PaymentView> {
           moyasarCredential:
               MoyasarCredential(publishableKey: "pk_key", secretKey: "sk_key"),
           tamaraCredential: TamaraCredential(
-            token: "Bearer TAMARA_TOKEN",
+            token: "Bearer test",
             merchantUrl:
                 MerchantUrl(notification: "https://my-app.com/webhook"),
           ),

@@ -21,7 +21,7 @@ class UniPayServices {
   }
 
   ///* Get tamara order transaction information
-  static Future getTamaraPaymentDetails(
+  static Future<UniPayResponse> getTamaraPaymentDetails(
       {required TamaraApiData tamaraApiData}) async {
     return await UniTamara.getTransactionInfo(tamaraApiData);
   }

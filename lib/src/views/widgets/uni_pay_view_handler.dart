@@ -32,16 +32,20 @@ class _UniPayViewHandlerState extends State<UniPayViewHandler> {
 
     final uniPayData = UniPayControllers.uniPayData;
 
-    ///* Check for Tamara checkout
+    // Case 1:  Tamara checkout
     if (uniPayData.credentials.paymentMethods.length == 1 &&
         uniPayData.credentials.paymentMethods.first.isTamara) {
       context.uniPushReplacement(const UniPayTamara());
-    } else if ((uniPayData.credentials.paymentMethods.length == 1 &&
+    }
+    // Case 2: Moyasar checkout
+    else if ((uniPayData.credentials.paymentMethods.length == 1 &&
             uniPayData.credentials.paymentMethods.first.isMoyasar) ||
         (uniPayData.credentials.paymentMethods.length == 2 &&
             !uniPayData.credentials.paymentMethods.isTamaraGateway)) {
       context.uniPushReplacement(const UniPayCard());
-    } else {
+    }
+    // Case 3: All payment methods
+    else {
       context.uniPushReplacement(const UniPayGatewayView());
     }
   }
