@@ -1,3 +1,7 @@
+## 2.0.2
+
+- Fixed pop to previous screen bugs
+
 ## 2.0.1
 
 - Standalone Apple Pay Integration: We have added support for standalone Apple Pay transactions. Now, you can easily invoke the UniApplePay widget to display and handle Apple Pay payments anywhere within your app.

@@ -21,9 +21,7 @@ class UniPayDesignSystem {
         leading: leading ??
             BackButton(
               color: UniPayColorsPalletes.black,
-              onPressed: () =>
-                  (uniStateKey.currentContext ?? UniPayControllers.context)
-                      .uniParentPop(),
+              onPressed: () => UniPayControllers.context.uniPop(),
             ),
         flexibleSpace: GlassMorphism(
           sigmaVal: 5,

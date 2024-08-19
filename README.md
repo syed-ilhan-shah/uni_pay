@@ -67,3 +67,5 @@ Please have a look at our [/example](https://pub.dev/packages/uni_pay/example) p
       ),
     )
 ```
+
+#### If you enjoyed it, then give it a star ⭐️ and like 👍🏻 and for more arts & crafts 🎨 from our team kindly visit here [Team UNICODE](https://pub.dev/publishers/unicodesolutions.co/packages). Until next time, keep coding and stay awesome 😉
