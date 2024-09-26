@@ -1,3 +1,7 @@
+## 2.0.3
+
+- Fixed Apple Pay payment
+
 ## 2.0.2
 
 - Fixed pop to previous screen bugs

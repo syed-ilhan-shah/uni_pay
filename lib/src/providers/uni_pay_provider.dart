@@ -3,10 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
 import 'package:uni_pay/src/modules/tabby/core/services/tabby_services.dart';
-import 'package:uni_pay/src/utils/extension.dart';
 import 'package:uni_pay/uni_pay.dart';
-
-import '../views/widgets/payment_result_view.dart';
 
 class UniPayControllers {
   UniPayControllers._();
@@ -61,10 +58,10 @@ class UniPayControllers {
   static Future handlePaymentsResponseAndCallback(BuildContext context,
       {required UniPayResponse response}) async {
     uniPayStatus = response.status;
-    context.uniPushReplacement(const PaymentResultView());
-    await Future.delayed(const Duration(seconds: 2));
 
-    UniPayControllers.context.uniParentPop();
+    // context.uniPushReplacement(const PaymentResultView());
+    // await Future.delayed(const Duration(seconds: 2));
+    // UniPayControllers.context.uniParentPop();
 
     //* Success
     if (response.status.isSuccess) {

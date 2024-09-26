@@ -23,7 +23,7 @@ class TabbySnippet {
   const TabbySnippet({
     required this.totalAmountWithVat,
     this.currency = UniPayCurrency.sar,
-    this.locale = UniPayLocale.en,
+    this.locale = UniPayLocale.ar,
     this.borderColor = const Color(0xFFD6DED6),
     this.backgroundColor = const Color(0xFFFFFFFF),
     this.textColor = const Color(0xFF292929),

@@ -13,7 +13,7 @@ class WidgetData {
   WidgetData({
     required this.currentStatus,
     required this.onChange,
-    required this.locale,
+    this.locale = UniPayLocale.ar,
     this.activeColor,
     this.totalAmount,
     this.currency = UniPayCurrency.sar,

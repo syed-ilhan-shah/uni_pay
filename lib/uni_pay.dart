@@ -60,3 +60,5 @@ export 'src/modules/tabby/core/models/tabby_snippet.dart';
 
 // Tabby - Views
 export 'src/modules/tabby/views/tabby_pay_view.dart';
+export 'src/modules/tabby/views/widgets/tabbly_payment.dart';
+export 'src/modules/tabby/core/services/tabby_services.dart';
