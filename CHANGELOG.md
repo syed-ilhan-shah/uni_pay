@@ -1,3 +1,7 @@
+## 2.0.4
+
+- Added Tabby BNPL snippets supports.
+
 ## 2.0.3
 
 - Fixed Apple Pay payment
