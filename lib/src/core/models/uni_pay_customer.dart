@@ -39,4 +39,9 @@ class UniPayCustomerInfo {
     data['address'] = address.toJson();
     return data;
   }
+
+  @override
+  String toString() {
+    return 'UniPayCustomerInfo(fullName: $fullName, phoneNumber: $phoneNumber, email: $email, address: $address, joinedAtDate: $joinedAtDate)';
+  }
 }

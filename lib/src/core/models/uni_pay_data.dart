@@ -32,6 +32,17 @@ class UniPayData {
   ///* Get response callback when payment request is failed
   late ValueChanged<UniPayResponse> onPaymentFailed;
 
+  ///* Order Meta Data in key value pair, example:
+  /// ```dart
+  /// {
+  ///   "customerId": "ABC_12345",
+  ///   "customerName": "Mohammad Saif"
+  /// }
+  /// ```
+  /// - Currently supports only `Moyasar` and, `Tamara`, but [Tabby] will be added soon, insha'Allah.
+  Map<String, dynamic>? metaData;
+
+  ///* Data constructor for `UniPayData` with required parameters and optional parameters
   UniPayData({
     required this.appName,
     required this.locale,
@@ -41,25 +52,29 @@ class UniPayData {
     this.environment = UniPayEnvironment.production,
     required this.onPaymentSucess,
     required this.onPaymentFailed,
+    this.metaData,
   });
 
+  ///* Convert json into `UniPayData`
   UniPayData.fromJson(Map<String, dynamic> json) {
     appName = json['appName'];
     locale = UniPayLocale.values[json['locale']];
     customerInfo = UniPayCustomerInfo.fromJson(json['customerInfo']);
     credentials = UniPayCredentials.fromJson(json['credentials']);
     orderInfo = UniPayOrder.fromJson(json['orderInfo']);
-    environment = UniPayEnvironment.values[json['environment']];
+    environment = UniPayEnvironment.values
+        .firstWhere((e) => e.name == json['environment']);
+    metaData = json['metaData'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['appName'] = appName;
-    data['locale'] = locale;
-    data['customerInfo'] = customerInfo.toJson();
-    data['credentials'] = credentials.toJson();
-    data['orderInfo'] = orderInfo.toJson();
-    data['environment'] = environment.index;
-    return data;
-  }
+  ///* Convert `UniPayData` to json
+  Map<String, dynamic> toJson() => {
+        'appName': appName,
+        'locale': locale.index,
+        'customerInfo': customerInfo.toJson(),
+        'credentials': credentials.toJson(),
+        'orderInfo': orderInfo.toJson(),
+        'environment': environment.name,
+        'metaData': metaData,
+      };
 }

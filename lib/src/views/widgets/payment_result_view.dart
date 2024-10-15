@@ -3,9 +3,9 @@ import 'package:lottie/lottie.dart';
 import 'package:uni_pay/src/constant/uni_text.dart';
 import 'package:uni_pay/src/utils/extension/size_extension.dart';
 import 'package:uni_pay/src/views/design_system.dart';
-import 'package:uni_pay/uni_pay.dart';
 
 import '../../constant/path.dart';
+import '../../providers/uni_pay_provider.dart';
 
 class PaymentResultView extends StatefulWidget {
   const PaymentResultView({Key? key}) : super(key: key);

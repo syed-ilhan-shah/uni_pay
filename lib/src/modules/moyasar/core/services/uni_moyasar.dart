@@ -8,6 +8,7 @@ import 'package:uni_pay/uni_pay.dart';
 import 'package:http/http.dart' as http_client;
 
 import '../../../../core/keys/api_keys.dart';
+import '../../../../providers/uni_pay_provider.dart';
 import '../../../../utils/utils.dart';
 
 class UniPayMoyasarGateway {
@@ -15,7 +16,7 @@ class UniPayMoyasarGateway {
 
   ///* Process the moyasar payment
   static Future processMoyasarPayment(BuildContext context,
-      {required dynamic result}) async {
+      {required dynamic result, bool isFromApplePay = false}) async {
     if (result is! PaymentCanceledError) {
       UniPayResponse uniPayResponse = UniPayResponse();
       if (result is PaymentResponse) {
@@ -64,8 +65,11 @@ class UniPayMoyasarGateway {
         uniPayResponse.errorMessage = UniPayText.paymentFailed;
       }
 
-      return UniPayControllers.handlePaymentsResponseAndCallback(context,
-          response: uniPayResponse);
+      return UniPayControllers.handlePaymentsResponseAndCallback(
+        context,
+        response: uniPayResponse,
+        isFromApplePay: isFromApplePay,
+      );
     }
   }
 

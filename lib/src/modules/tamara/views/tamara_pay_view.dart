@@ -4,6 +4,7 @@ import 'package:uni_pay/src/modules/tamara/views/widget/tamara_checkout_view.dar
 import 'package:uni_pay/src/views/design_system.dart';
 import 'package:uni_pay/uni_pay.dart';
 
+import '../../../providers/uni_pay_provider.dart';
 import '../core/models/tamara_urls.dart';
 
 class UniPayTamara extends StatefulWidget {

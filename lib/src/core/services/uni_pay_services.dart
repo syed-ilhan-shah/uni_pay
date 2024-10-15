@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uni_pay/uni_pay.dart';
 
 import '../../modules/moyasar/core/services/uni_moyasar.dart';
+import '../../providers/uni_pay_provider.dart';
 
 class UniPayServices {
   UniPayServices._();

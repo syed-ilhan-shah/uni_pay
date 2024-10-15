@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:uni_pay/src/modules/tabby/core/services/tabby_services.dart';
 import 'package:uni_pay/src/utils/extension/size_extension.dart';
 import 'package:uni_pay/src/views/widgets/payment_options_widget.dart';
 import 'package:uni_pay/uni_pay.dart';
@@ -23,7 +22,7 @@ class TabbySplitPlanWidget extends StatelessWidget {
       onChange: widgetData.onChange,
       activeColor: widgetData.activeColor,
       uniPayPaymentMethods: UniPayPaymentMethods.tabby,
-      subTitleWidget: TabbyServices.showTabbySnippet(
+      subTitleWidget: UniTabbyServices.showTabbyCheckoutSnippet(
         tabbySnippet: TabbySnippet(
           totalAmountWithVat: widgetData.totalAmount ?? 0,
           currency: widgetData.currency,

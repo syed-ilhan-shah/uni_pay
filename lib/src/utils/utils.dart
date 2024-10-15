@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 
 class Utils {
@@ -14,6 +16,6 @@ void uniPrint(dynamic data) {
 ///* Print in log shortcuts `log()`
 void uniLog(dynamic data) {
   if (kDebugMode) {
-    // log(data.toString(), time: DateTime.now());
+    log(data.toString(), time: DateTime.now());
   }
 }

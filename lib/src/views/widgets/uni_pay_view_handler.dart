@@ -4,6 +4,7 @@ import 'package:uni_pay/src/utils/extension.dart';
 import '../../../uni_pay.dart';
 import '../../modules/moyasar/views/uni_pay_moyasar_view.dart';
 
+import '../../providers/uni_pay_provider.dart';
 import '../../utils/extension/size_extension.dart';
 import '../design_system.dart';
 import '../uni_pay_all_view.dart';

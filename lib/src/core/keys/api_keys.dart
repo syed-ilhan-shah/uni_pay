@@ -1,7 +1,8 @@
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:moyasar/moyasar.dart';
 import 'package:uni_pay/src/utils/extension.dart';
-import 'package:uni_pay/uni_pay.dart';
+
+import '../../providers/uni_pay_provider.dart';
 
 class ApiKeys {
   ///* Keys -------------------------------
@@ -24,21 +25,24 @@ class ApiKeys {
       .uniPayData.credentials.tamaraCredential!.token.tamaraHeaders;
 
   ///* Process payment --------------------------------
-  static PaymentConfig get moyasarPaymentConfig => PaymentConfig(
-        publishableApiKey: UniPayControllers
-            .uniPayData.credentials.moyasarCredential!.publishableKey,
-        amount: UniPayControllers
-            .uniPayData.orderInfo.transactionAmount.totalAmount.amountInHalala,
-        description: UniPayControllers.uniPayData.orderInfo.description,
-        applePay: ApplePayConfig(
-          manual: false,
-          label: UniPayControllers.uniPayData.appName,
-          merchantId: UniPayControllers
-                  .uniPayData.credentials.applePayMerchantIdentifier ??
-              "",
-        ),
-        metadata: {"orderId": UniPayControllers.uniPayData.orderInfo.orderId},
-      );
+  static PaymentConfig get moyasarPaymentConfig {
+    final uniPayData = UniPayControllers.uniPayData;
+    PaymentConfig config = PaymentConfig(
+      publishableApiKey:
+          uniPayData.credentials.moyasarCredential!.publishableKey,
+      amount: UniPayControllers
+          .uniPayData.orderInfo.transactionAmount.totalAmount.amountInHalala,
+      description: uniPayData.orderInfo.description,
+      applePay: ApplePayConfig(
+        manual: false,
+        label: uniPayData.appName,
+        merchantId: uniPayData.credentials.applePayMerchantIdentifier,
+      ),
+      metadata:
+          uniPayData.metaData ?? {"orderId": uniPayData.orderInfo.orderId},
+    );
+    return config;
+  }
 
   ///* Web view options
   static InAppWebViewGroupOptions webViewGroupOptions =
@@ -53,4 +57,19 @@ class ApiKeys {
   ///* Moyasar
   static String moyasarBaseUrl = "https://api.moyasar.com/v1";
   static String moyasarPaymentsUrl = "$moyasarBaseUrl/payments";
+
+  ///  ------------ Tabby ---------------- ///
+  /// Get the tabby base Url
+  static String tabbyBaseUrl = "https://api.tabby.ai/api/v1";
+
+  /// Get the tabby payments Url
+  static String tabbyPaymentsUrl = "$tabbyBaseUrl/payments";
+
+  /// Get the tabby payment Url by [ID]
+  static Uri tabbyPaymentUrlById(String trxnId) =>
+      Uri.parse("$tabbyPaymentsUrl/$trxnId");
+
+  /// Get the tabby capture Url
+  static Uri tabbyCaptureUrl(String trxnId) =>
+      Uri.parse("$tabbyPaymentsUrl/$trxnId/captures");
 }

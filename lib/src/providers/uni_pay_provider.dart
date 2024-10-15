@@ -1,9 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
-import 'package:uni_pay/src/modules/tabby/core/services/tabby_services.dart';
+import 'package:uni_pay/src/utils/extension.dart';
 import 'package:uni_pay/uni_pay.dart';
+
+import '../views/widgets/payment_result_view.dart';
 
 class UniPayControllers {
   UniPayControllers._();
@@ -27,7 +28,7 @@ class UniPayControllers {
     context = appContext;
 
     // Initialize Tabby SDK
-    TabbyServices.initTabbySDK(data);
+    UniTabbyServices.initTabbySDK(data);
   }
 
   ///* Initialize Tamara all payment methods
@@ -55,13 +56,21 @@ class UniPayControllers {
   static UniPayStatus uniPayStatus = UniPayStatus.failed;
 
   ///* Handle and call the callback function for payment status
-  static Future handlePaymentsResponseAndCallback(BuildContext context,
-      {required UniPayResponse response}) async {
+  static Future handlePaymentsResponseAndCallback(
+    BuildContext context, {
+    required UniPayResponse response,
+    bool isFromApplePay = false,
+  }) async {
     uniPayStatus = response.status;
 
-    // context.uniPushReplacement(const PaymentResultView());
-    // await Future.delayed(const Duration(seconds: 2));
-    // UniPayControllers.context.uniParentPop();
+    if (!isFromApplePay) {
+      // Navigate to payment result view
+      context.uniPushReplacement(const PaymentResultView());
+      await Future.delayed(const Duration(seconds: 2));
+
+      /// Pop the payment result view and go back to the previous screen
+      UniPayControllers.context.uniParentPop();
+    }
 
     //* Success
     if (response.status.isSuccess) {
@@ -89,12 +98,12 @@ class UniPayControllers {
       ValueNotifier<UniPayCurrentState>(UniPayCurrentState.notSpecified);
 
   ///* Tamara checkout data
-  static TabbySession? tabbySession;
-  static Future<TabbySession?> initTabbyCheckoutSession() async {
+  static TabbySessionData? tabbySession;
+  static Future<TabbySessionData?> initTabbyCheckoutSession() async {
     tabbyNotifier.value = UniPayCurrentState.loading;
 
     // Create Tabby session
-    tabbySession = await TabbyServices.createTabbySession(uniPayData);
+    tabbySession = await UniTabbyServices.createTabbySession(uniPayData);
     tabbyNotifier.value = tabbySession != null
         ? UniPayCurrentState.success
         : UniPayCurrentState.failed;

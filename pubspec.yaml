@@ -1,10 +1,11 @@
 # A library for making online payment by using Moyasar and Tamara payment gateway
-#* Developed, published, and maintained by Mohammad Saiful Islam Saif
-# https://github.com/mohammadsaif19
+#* Developed, published, and maintained by Mohammad Saiful Islam Saif, and Falcon team members at UNICODE.
+# View my [Github](https://github.com/mohammadsaif19) Profile, or
+# visit my [Website](https://mohammadsaif.dev/?utm_source=uni_pay)
 
 name: uni_pay
-description: A library for making online payment by using Moyasar, Tamara, and Tabby payment gateway.
-version: 2.0.4
+description: A comprehensive library for seamless online payments, integrating Moyasar (Card & Apple pay), Tamara, and Tabby payment gateways. Effortlessly handle transactions, enhance user experience, and streamline your payment processing with our robust and versatile solution.
+version: 3.0.0
 repository: https://github.com/UNICODE-Venture/uni_pay
 homepage: https://github.com/UNICODE-Venture/uni_pay
 issue_tracker: https://github.com/UNICODE-Venture/uni_pay/issues

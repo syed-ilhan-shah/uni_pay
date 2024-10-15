@@ -15,6 +15,7 @@ class TamaraData {
   late TaxAmount taxAmount;
   late ShippingAmount shippingAmount;
   late MerchantUrl merchantUrl;
+  Map<String, dynamic>? additionalData;
 
   TamaraData({
     required this.orderReferenceId,
@@ -29,6 +30,7 @@ class TamaraData {
     required this.taxAmount,
     required this.shippingAmount,
     required this.merchantUrl,
+    this.additionalData,
   });
 
   TamaraData.fromJson(Map<String, dynamic> json) {
@@ -44,6 +46,7 @@ class TamaraData {
     taxAmount = TaxAmount.fromJson(json['tax_amount']);
     shippingAmount = ShippingAmount.fromJson(json['shipping_amount']);
     merchantUrl = MerchantUrl.fromJson(json['merchant_url']);
+    additionalData = json['additional_data'];
   }
 
   Map<String, dynamic> toJson() {
@@ -60,6 +63,7 @@ class TamaraData {
     data['tax_amount'] = taxAmount.toJson();
     data['shipping_amount'] = shippingAmount.toJson();
     data['merchant_url'] = merchantUrl.toJson();
+    if (additionalData != null) data['additional_data'] = additionalData;
     return data;
   }
 }

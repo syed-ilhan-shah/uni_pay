@@ -5,6 +5,7 @@ import 'package:uni_pay/uni_pay.dart';
 
 import '../constant/locale.dart';
 
+import '../providers/uni_pay_provider.dart';
 import '../theme/colors.dart';
 
 final uniStateKey = GlobalKey<NavigatorState>();

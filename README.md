@@ -64,8 +64,42 @@ Please have a look at our [/example](https://pub.dev/packages/uni_pay/example) p
         onPaymentFailed: (res) {
           debugPrint("Payment Failed ----> ${res.toMap()}");
         },
+        metaData: {
+          "customerId": "ABC_12345",
+          "customerName": "Saif",
+        }
       ),
     )
+```
+
+### Tabby Features
+
+- Get the transaction details:
+
+```dart
+  TabbyTransaction transaction =  await UniTabbyServices.getTabbyTransactionDetails(
+                      tabbyDto: TabbyDto(
+                      transactionId: "trxn_id",
+                      credential: TabbyCredential(
+                        psKey: "pk_test",
+                        secretKey: "sk_test",
+                        merchantCode: "your_merchant_code",
+                      )));
+```
+
+- Capture the order:
+
+```dart
+  TabbyTransaction transaction =  await UniTabbyServices.captureTabbyPayment(
+                      tabbyDto: TabbyDto(
+                      transactionId: "trxn_id",
+                      credential: TabbyCredential(
+                        psKey: "pk_test",
+                        secretKey: "sk_test",
+                        merchantCode: "your_merchant_code",
+                      ),
+                      amount: 950.55,
+                    ));
 ```
 
 #### If you enjoyed it, then give it a star ⭐️ and like 👍🏻 and for more arts & crafts 🎨 from our team kindly visit here [Team UNICODE](https://pub.dev/publishers/unicodesolutions.co/packages). Until next time, keep coding and stay awesome 😉

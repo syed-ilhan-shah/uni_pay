@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
 import 'package:uni_pay/src/constant/uni_text.dart';
-import 'package:uni_pay/src/modules/tabby/core/services/tabby_services.dart';
 import 'package:uni_pay/src/views/design_system.dart';
 import 'package:uni_pay/uni_pay.dart';
+
+import '../../../providers/uni_pay_provider.dart';
 
 class UniPayTabby extends StatefulWidget {
   /// A view to process payment using Tabby payment gateway
@@ -41,19 +42,19 @@ class _UniPayTabbyState extends State<UniPayTabby> {
               onResult: (WebViewResult resultCode) {
                 // Case 1: Payment success
                 if (resultCode == WebViewResult.authorized) {
-                  TabbyServices.processTabbyPayment(
+                  UniTabbyServices.processTabbyPayment(
                       context, UniPayStatus.success,
                       transactionId: tabbySession.paymentId);
                 }
                 // Case 2: Payment canceled
                 else if (resultCode == WebViewResult.close ||
                     resultCode == WebViewResult.rejected) {
-                  TabbyServices.processTabbyPayment(
+                  UniTabbyServices.processTabbyPayment(
                       context, UniPayStatus.cancelled);
                 }
                 // Case 3: Payment failed
                 else {
-                  TabbyServices.processTabbyPayment(
+                  UniTabbyServices.processTabbyPayment(
                       context, UniPayStatus.failed);
                 }
               },

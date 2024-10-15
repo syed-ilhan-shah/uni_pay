@@ -15,8 +15,8 @@ class UniPayCredentials {
   ///* Tamara credentials
   late TamaraCredential? tamaraCredential;
 
-  ///* Apple pay merchant identifier
-  late String? applePayMerchantIdentifier;
+  ///* Apple pay merchant identifier. e.g: `merchant.com.myapp.sa`
+  late String applePayMerchantIdentifier;
 
   ///* Tabby credentials
   late TabbyCredential? tabbyCredential;
@@ -25,7 +25,7 @@ class UniPayCredentials {
     required this.paymentMethods,
     this.moyasarCredential,
     this.tamaraCredential,
-    this.applePayMerchantIdentifier,
+    required this.applePayMerchantIdentifier,
     this.tabbyCredential,
   })  : assert(
             paymentMethods.isMoyasarGateway ? moyasarCredential != null : true,
@@ -39,7 +39,7 @@ class UniPayCredentials {
             UniPayText.pleaseProvideCredentials),
         assert(
             paymentMethods.isApplePay
-                ? applePayMerchantIdentifier != null
+                ? applePayMerchantIdentifier.isNotEmpty
                 : true,
             UniPayText.applePayMerchantIdentifierError);
 
@@ -55,6 +55,9 @@ class UniPayCredentials {
     data['paymentMethods'] = paymentMethods.map((e) => e..index).toList();
     data['moyasarCredential'] = moyasarCredential?.toJson();
     data['tamaraCredential'] = tamaraCredential?.toJson();
+    data['applePayMerchantIdentifier'] = applePayMerchantIdentifier;
+    data['tabbyCredential'] = tabbyCredential?.toJson();
+
     return data;
   }
 }

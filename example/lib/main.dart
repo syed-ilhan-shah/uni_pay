@@ -42,7 +42,7 @@ class _PaymentViewState extends State<PaymentView> {
     // return _applePayOnlyView();
   }
 
-// To show the Apple Pay only view
+  // To show the Apple Pay only view
   Widget _applePayOnlyView() {
     return Scaffold(
       appBar: AppBar(title: const Text("UniPay Example")),
@@ -86,7 +86,11 @@ UniPayData uniPayData = UniPayData(
       token: "Bearer test",
       merchantUrl: MerchantUrl(notification: "https://my-app.com/webhook"),
     ),
-    tabbyCredential: TabbyCredential(psKey: "pk_test"),
+    tabbyCredential: TabbyCredential(
+      psKey: "pk_test",
+      secretKey: "sk_test",
+      merchantCode: "your_merchant_code",
+    ),
   ),
   orderInfo: UniPayOrder(
     transactionAmount: TransactionAmount(totalAmount: 150.55),
@@ -106,5 +110,9 @@ UniPayData uniPayData = UniPayData(
   },
   onPaymentFailed: (res) {
     debugPrint("Payment Failed ----> ${res.toMap()}");
+  },
+  metaData: {
+    "customerId": "ABC_12345",
+    "customerName": "Mohammad Saif",
   },
 );

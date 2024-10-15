@@ -1,0 +1,34 @@
+import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
+
+class TabbySessionData extends TabbySession {
+  TabbySessionData({
+    required super.sessionId,
+    required super.paymentId,
+    required super.availableProducts,
+  });
+
+  Map<String, dynamic> toJson() {
+    final installment = availableProducts.installments;
+    return {
+      'sessionId': sessionId,
+      'paymentId': paymentId,
+      'installment': installment != null
+          ? {
+              'type': installment.type.name,
+              'months': installment.webUrl,
+            }
+          : null,
+    };
+  }
+
+  @override
+  String toString() =>
+      'TabbySessionData(sessionId: $sessionId, paymentId: $paymentId, isPreScoresPaassed: $isPreScorePassed, availableProducts: (type: ${availableProducts.installments?.type.name}, webUrl: ${availableProducts.installments?.webUrl}))';
+
+  /// Check is Pre-score is passed
+  bool get isPreScorePassed {
+    final installment = availableProducts.installments;
+    return installment != null && installment.webUrl.isNotEmpty;
+    // && installment.type == TabbyPurchaseType.installments ;
+  }
+}

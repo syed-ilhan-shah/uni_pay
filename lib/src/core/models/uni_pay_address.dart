@@ -35,4 +35,9 @@ class UniPayAddress {
     data['zip_code'] = zipCode;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'UniPayAddress(addressName: $addressName, city: $city, country: ${country.countryCode}, zipCode: $zipCode)';
+  }
 }

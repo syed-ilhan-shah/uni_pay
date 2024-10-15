@@ -1,3 +1,11 @@
+## 3.0.0
+
+- Now you get pre-score result from Tabby, to decide wheather to show Tabby pay or not.
+- Added get transaction details form Tabby, and capture order to Tabby.
+- Added Tabby BNPL checkouts snippets supports.
+- Fixes other minor bugs related to the flow.
+- Added Meta data support to Moyasar, and Tamara, but Tabby coming soooooooon!
+
 ## 2.0.4
 
 - Added Tabby BNPL snippets supports.

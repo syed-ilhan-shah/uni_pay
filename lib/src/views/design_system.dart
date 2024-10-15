@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:uni_pay/src/utils/extension.dart';
 import 'package:uni_pay/src/utils/extension/size_extension.dart';
 
-import '../../uni_pay.dart';
 import '../constant/uni_text.dart';
+import '../providers/uni_pay_provider.dart';
 import '../theme/colors.dart';
 
 class UniPayDesignSystem {

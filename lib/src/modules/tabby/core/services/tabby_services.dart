@@ -5,8 +5,8 @@ import 'package:uni_pay/src/utils/utils.dart';
 import 'package:uni_pay/uni_pay.dart'
     show
         TabbyCredential,
+        TabbyDto,
         TabbySnippet,
-        UniPayControllers,
         UniPayCustomerInfo,
         UniPayData,
         UniPayOrder,
@@ -14,7 +14,17 @@ import 'package:uni_pay/uni_pay.dart'
         UniPayResponse,
         UniPayStatus;
 
-class TabbyServices {
+import '../../../../providers/uni_pay_provider.dart';
+import '../models/tabby_session.dart';
+import '../models/tabby_trxn.dart';
+import 'tabby_repo.dart';
+
+final _tabbyRepo = TabbyRepo();
+
+/// Include all Tabby related Services to handle Tabby payment gateway,
+///
+/// Such as: Initiate tabby payment, create session, capture payment, get transaction details, etc.
+class UniTabbyServices {
   static TabbySDK? _tabbySdk;
 
   /// Init Tabby SDK to prepare for payment
@@ -34,7 +44,8 @@ class TabbyServices {
   /// Show Tabby payment snippet
   ///
   /// Please make sure you provided the required data
-  static Widget showTabbySnippet({required TabbySnippet tabbySnippet}) {
+  static Widget showProductPageTabbySnippet(
+      {required TabbySnippet tabbySnippet}) {
     return TabbyPresentationSnippet(
       price: tabbySnippet.totalAmountWithVat.formattedString,
       currency: tabbySnippet.currency.tabbyCurrency,
@@ -55,22 +66,29 @@ class TabbyServices {
   }
 
   /// Create Tabby session to proceed with payment
-  static Future<TabbySession?> createTabbySession(UniPayData uniPayData) async {
+  static Future<TabbySessionData?> createTabbySession(
+      UniPayData uniPayData) async {
     UniPayOrder order = uniPayData.orderInfo;
     UniPayCustomerInfo customer = uniPayData.customerInfo;
     TabbyCredential tabbyCredential = uniPayData.credentials.tabbyCredential!;
 
+    if (_tabbySdk == null) {
+      throw Exception(
+          "Call `UniPayServices.initUniPay()` before using this function to initialize the `UniPay` module.");
+    }
+
     try {
-      TabbySession session =
-          await _tabbySdk!.createSession(TabbyCheckoutPayload(
+      TabbyCheckoutPayload tabbyCheckoutPayload = TabbyCheckoutPayload(
         merchantCode: tabbyCredential.merchantCode,
         lang: uniPayData.locale.tabbyLang,
         payment: Payment(
           amount: order.transactionAmount.totalAmount.toString(),
           currency: order.transactionAmount.currency.tabbyCurrency,
           buyer: Buyer(
-            //  'card.success@tabby.ai',
+            // 'card.success@tabby.ai',
+            // '0500000001'
             // 'otp.rejected@tabby.ai',
+            // '0500000002'
             email: customer.email,
             phone: customer.phoneNumber,
             name: customer.fullName,
@@ -109,9 +127,15 @@ class TabbyServices {
             zip: customer.address.zipCode,
           ),
         ),
-      ));
-      uniLog(
-          "Tabby Session ---> ${session.sessionId} ${session.paymentId} ${session.availableProducts.installments?.type}");
+      );
+      final sessionResult =
+          await _tabbySdk!.createSession(tabbyCheckoutPayload);
+      TabbySessionData session = TabbySessionData(
+        sessionId: sessionResult.sessionId,
+        paymentId: sessionResult.paymentId,
+        availableProducts: sessionResult.availableProducts,
+      );
+      uniLog("✔ Tabby Session: ${session.toString()}");
       return session;
     } on ServerException catch (e) {
       uniLog("Tabby ServerException: $e");
@@ -131,5 +155,27 @@ class TabbyServices {
     }
     return UniPayControllers.handlePaymentsResponseAndCallback(context,
         response: response);
+  }
+
+  /// Check the Pre-score result session, before proceeding with payment
+  static Future<TabbySessionData?> checkPreScoreSession(
+      UniPayData uniPayData) async {
+    // Initialize Tabby SDK
+    if (_tabbySdk == null) {
+      initTabbySDK(uniPayData);
+    }
+    return createTabbySession(uniPayData);
+  }
+
+  /// Get the transaction details from Tabby
+  static Future<TabbyTransaction> getTabbyTransactionDetails(
+      {required TabbyDto tabbyDto}) {
+    return _tabbyRepo.getTransactionDetails(tabbyDto: tabbyDto);
+  }
+
+  /// Capture the transaction to Tabby, so that they will complete the payment for your merchant.
+  static Future<TabbyTransaction> captureTabbyPayment(
+      {required TabbyDto tabbyDto}) {
+    return _tabbyRepo.captureTabbyOrder(tabbyDto: tabbyDto);
   }
 }

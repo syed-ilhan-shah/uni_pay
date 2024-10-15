@@ -72,6 +72,7 @@ class UniTamara {
         currency: order.transactionAmount.currency.currencyCode,
       ),
       merchantUrl: uniPayData.credentials.tamaraCredential!.merchantUrl,
+      additionalData: uniPayData.metaData,
     );
 
     TamaraCheckoutData checkout =
