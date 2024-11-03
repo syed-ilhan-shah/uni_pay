@@ -76,6 +76,9 @@ enum UniPayLocale {
 
   /// tabby locale
   Lang get tabbyLang => isArabic ? Lang.ar : Lang.en;
+
+  /// Get the language code
+  String get code => isArabic ? "ar" : "en";
 }
 
 enum UniPayCountry { sa }
@@ -141,7 +144,7 @@ enum UniPayEnvironment {
 
   /// Get the tabby environment
   Environment get tabbyEnv =>
-      isProduction ? Environment.production : Environment.stage;
+      isProduction ? Environment.production : Environment.production;
 }
 
 enum UniPayStatus {

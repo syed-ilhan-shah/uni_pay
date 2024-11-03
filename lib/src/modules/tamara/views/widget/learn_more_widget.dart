@@ -9,8 +9,9 @@ import '../../../../views/design_system.dart';
 class LearnMoreTamaraWidget extends StatefulWidget {
   final num totalAmount;
   final UniPayLocale locale;
+  final WebUri? url;
   const LearnMoreTamaraWidget(
-      {Key? key, required this.totalAmount, required this.locale})
+      {Key? key, required this.totalAmount, required this.locale, this.url})
       : super(key: key);
 
   @override
@@ -32,10 +33,11 @@ class _LearnMoreTamaraWidgetState extends State<LearnMoreTamaraWidget> {
           children: [
             InAppWebView(
               initialUrlRequest: URLRequest(
-                url: Uri.parse(
-                  UniTamara.getTamaraCDN(
-                      price: widget.totalAmount, locale: widget.locale),
-                ),
+                url: widget.url ??
+                    WebUri(
+                      UniTamara.getTamaraCDN(
+                          price: widget.totalAmount, locale: widget.locale),
+                    ),
               ),
               onProgressChanged: (controller, progress) {
                 if (progress == 100) {
@@ -56,3 +58,4 @@ class _LearnMoreTamaraWidgetState extends State<LearnMoreTamaraWidget> {
     );
   }
 }
+// https://cdn-sandbox.tamara.co/widget-v2/tamara-widget.html?lang=en&public_key=pk_1257cd35-99f8-40b5-ae9d-fc4e2f884a69&country=SA&amount=350&inline_type=2

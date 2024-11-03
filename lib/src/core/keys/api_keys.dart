@@ -1,8 +1,9 @@
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:moyasar/moyasar.dart';
+import 'package:uni_pay/src/modules/tamara/core/models/tamara_snippet.dart';
 import 'package:uni_pay/src/utils/extension.dart';
 
-import '../../providers/uni_pay_provider.dart';
+import '../../core/controllers/uni_pay_controller.dart';
 
 class ApiKeys {
   ///* Keys -------------------------------
@@ -72,4 +73,10 @@ class ApiKeys {
   /// Get the tabby capture Url
   static Uri tabbyCaptureUrl(String trxnId) =>
       Uri.parse("$tabbyPaymentsUrl/$trxnId/captures");
+
+  /// Get the Tamara campaign CDN
+  static WebUri tamaraCampaignCDN(TamaraSnippet campaign,
+          [bool isFromCheckout = false]) =>
+      WebUri(
+          "https://cdn-sandbox.tamara.co/widget-v2/tamara-widget.html?lang=${campaign.locale.code}&public_key=${campaign.psKey}&country=${campaign.countryCode}&amount=${campaign.transactionAmount.formattedValue}&inline_type=${isFromCheckout ? 2 : 3}");
 }

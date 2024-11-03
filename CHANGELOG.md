@@ -1,3 +1,9 @@
+## 3.0.1
+
+- Added Tamara BNPL checkouts snippets supports.
+- Fixes other minor bugs related to the flow.
+- And last but not least added code example to the README.md
+
 ## 3.0.0
 
 - Now you get pre-score result from Tabby, to decide wheather to show Tabby pay or not.

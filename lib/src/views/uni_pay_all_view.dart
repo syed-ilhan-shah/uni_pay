@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:uni_pay/src/modules/moyasar/views/moyasar_card_widget.dart';
-import 'package:uni_pay/src/modules/moyasar/views/uni_pay_moyasar_view.dart';
 import 'package:uni_pay/src/utils/extension.dart';
 
 import '../../uni_pay.dart';
 import '../constant/uni_text.dart';
-import '../providers/uni_pay_provider.dart';
+import '../modules/moyasar/views/moyasar_card_widget.dart';
+import '../modules/moyasar/views/uni_pay_moyasar_view.dart';
+import '../core/controllers/uni_pay_controller.dart';
 import 'design_system.dart';
 
 class UniPayGatewayView extends StatefulWidget {

@@ -39,8 +39,7 @@ class _TamaraCheckoutViewState extends State<TamaraCheckoutView> {
           InAppWebView(
             key: _viewKey,
             initialOptions: ApiKeys.webViewGroupOptions,
-            initialUrlRequest:
-                URLRequest(url: Uri.parse(tamaraUrls.checkoutUrl)),
+            initialUrlRequest: URLRequest(url: WebUri(tamaraUrls.checkoutUrl)),
             shouldOverrideUrlLoading: (controller, action) async {
               inAppViewController = controller;
               String? currentLoadedUrl = action.request.url?.toString();

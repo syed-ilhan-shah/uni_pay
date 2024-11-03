@@ -9,7 +9,7 @@ class Utils {
 ///* Print shortcuts `print()`
 void uniPrint(dynamic data) {
   if (kDebugMode) {
-    // print(data);
+    print(data);
   }
 }
 

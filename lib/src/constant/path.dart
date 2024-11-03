@@ -5,6 +5,7 @@ class UniAssetsPath {
   ///* Animation
   static String animation = "assets/animations";
   static String images = "assets/images";
+  static String icons = "assets/icons";
 
   ///* Success
   static String success = "${UniAssetsPath.animation}/success.json";

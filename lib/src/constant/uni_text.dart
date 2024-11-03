@@ -72,4 +72,19 @@ class UniPayText {
 
   static String noTransactionFound =
       "No transaction found for the provided metadata!";
+
+  // Tamara Campaign
+  static String get tamaraCampaign1 => isEnglish
+      ? "Or split in 3 payments of"
+      : "أو قسم فاتورتك على 3 دفعات بقيمة";
+
+  static String get tamaraCampaign2 => isEnglish
+      ? "- No late fees, Sharia compliant!"
+      : "بدون رسوم تأخير، متوافقة مع الشريعة الإسلامية";
+
+  static String sar(amount) => isEnglish ? " SAR $amount " : " $amount ر.س ";
+
+  static String get tamaraCheckoutTitle => isEnglish
+      ? "Split in 3 payments - No late fees, Sharia compliant"
+      : "قسمها على 3 دفعات - بدون رسوم تأخير، متوافقة مع الشريعة الإسلامية";
 }

@@ -5,8 +5,8 @@ import 'package:uni_pay/src/utils/extension.dart';
 import 'package:uni_pay/src/utils/extension/size_extension.dart';
 
 import '../../../uni_pay.dart';
+import '../../core/controllers/uni_pay_controller.dart';
 import '../../core/keys/api_keys.dart';
-import '../../providers/uni_pay_provider.dart';
 
 class UniApplePay extends StatefulWidget {
   /// Uni Apple Pay Widget - You can pass the `context` and `UniPayData` to the widget directly

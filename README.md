@@ -102,4 +102,52 @@ Please have a look at our [/example](https://pub.dev/packages/uni_pay/example) p
                     ));
 ```
 
+- Show the Product page Banner of Tabby:
+
+```dart
+              UniTabbyServices.showProductPageTabbySnippet(
+                tabbySnippet: TabbySnippet(
+                  totalAmountWithVat: 150.50,
+                  locale: UniPayLocale.ar,
+                ),
+              )
+```
+
+- Show the Checkout page Banner of Tabby:
+
+```dart
+              UniTabbyServices.showTabbyCheckoutSnippet(
+                tabbySnippet: TabbySnippet(
+                  totalAmountWithVat: 150.50,
+                  locale: UniPayLocale.ar,
+                ),
+              )
+```
+
+### Tamara Features
+
+- Show the Product page Banner of Tamara:
+
+```dart
+               UniPayServices.tamaraProductPageSnippet(
+                  const TamaraSnippet(
+                    psKey: "ps_key",
+                    transactionAmount: 150,
+                    locale: UniPayLocale.en,
+                  ),
+                ),
+```
+
+- Show the Checkout page Banner of Tamara:
+
+```dart
+                UniPayServices.tamaraCheckoutPageSnippet(
+                  const TamaraSnippet(
+                    psKey: "ps_key",
+                    transactionAmount: 150,
+                    locale: UniPayLocale.ar,
+                  ),
+                )
+```
+
 #### If you enjoyed it, then give it a star ⭐️ and like 👍🏻 and for more arts & crafts 🎨 from our team kindly visit here [Team UNICODE](https://pub.dev/publishers/unicodesolutions.co/packages). Until next time, keep coding and stay awesome 😉

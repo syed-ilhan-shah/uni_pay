@@ -8,7 +8,7 @@ import 'package:uni_pay/uni_pay.dart';
 import 'package:http/http.dart' as http_client;
 
 import '../../../../core/keys/api_keys.dart';
-import '../../../../providers/uni_pay_provider.dart';
+import '../../../../core/controllers/uni_pay_controller.dart';
 import '../../../../utils/utils.dart';
 
 class UniPayMoyasarGateway {

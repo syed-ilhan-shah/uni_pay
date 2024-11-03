@@ -1,7 +1,7 @@
 import 'package:uni_pay/src/core/keys/api_keys.dart';
 import 'package:uni_pay/uni_pay.dart';
 
-import '../../../../providers/uni_pay_provider.dart';
+import '../../../../core/controllers/uni_pay_controller.dart';
 
 class TamaraCallBackResponse {
   late String orderId;

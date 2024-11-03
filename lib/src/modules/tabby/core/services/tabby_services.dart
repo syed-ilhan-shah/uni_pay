@@ -14,7 +14,7 @@ import 'package:uni_pay/uni_pay.dart'
         UniPayResponse,
         UniPayStatus;
 
-import '../../../../providers/uni_pay_provider.dart';
+import '../../../../core/controllers/uni_pay_controller.dart';
 import '../models/tabby_session.dart';
 import '../models/tabby_trxn.dart';
 import 'tabby_repo.dart';

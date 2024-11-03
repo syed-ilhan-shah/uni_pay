@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:uni_pay/uni_pay.dart';
 
 import '../../modules/moyasar/core/services/uni_moyasar.dart';
-import '../../providers/uni_pay_provider.dart';
+import '../../modules/tamara/views/widget/tamara_campaign.dart';
+import '../../core/controllers/uni_pay_controller.dart';
 
 class UniPayServices {
   UniPayServices._();
@@ -34,5 +35,15 @@ class UniPayServices {
   static Future<UniPayResponse> getTamaraPaymentDetails(
       {required TamaraApiData tamaraApiData}) async {
     return await UniTamara.getTransactionInfo(tamaraApiData);
+  }
+
+  ///* Get the Product page snippet from Tamara
+  static Widget tamaraProductPageSnippet(TamaraSnippet campaign) {
+    return TamaraCampaign(campaign: campaign);
+  }
+
+  ///* Get the Checkout page campaign from Tamara
+  static Widget tamaraCheckoutPageSnippet(TamaraSnippet campaign) {
+    return TamaraCampaign(campaign: campaign, isFromProductPage: false);
   }
 }

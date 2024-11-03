@@ -25,6 +25,7 @@ export 'src/modules/tamara/core/models/t_checkout.dart';
 export 'src/modules/tamara/core/models/tamara_data.dart';
 export 'src/modules/tamara/core/models/capture_order.dart';
 export 'src/modules/tamara/core/models/capture_response.dart';
+export 'src/modules/tamara/core/models/tamara_snippet.dart';
 
 // Tamara - Services
 export 'src/modules/tamara/core/services/uni_tamara.dart';

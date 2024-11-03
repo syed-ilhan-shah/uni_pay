@@ -38,4 +38,11 @@ class UniPayTheme {
         fontSize: 13.rSp,
         package: UniAssetsPath.packageName,
       );
+  static TextStyle get uniPaySubTitleStyle => TextStyle(
+        fontFamily: fontFamily,
+        fontWeight: FontWeight.w400,
+        fontSize: 13.rSp,
+        package: UniAssetsPath.packageName,
+        color: Colors.grey[800],
+      );
 }

@@ -4,18 +4,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:uni_pay/src/constant/uni_text.dart';
 import 'package:uni_pay/src/core/keys/api_keys.dart';
-import 'package:uni_pay/src/core/models/uni_pay_res.dart';
-import 'package:uni_pay/src/modules/tamara/core/models/capture_response.dart';
 import 'package:uni_pay/src/modules/tamara/core/models/tamara_callback.dart';
 import 'package:uni_pay/src/utils/extension.dart';
-import 'package:uni_pay/src/utils/uni_enums.dart';
 import 'package:uni_pay/src/utils/utils.dart';
+import 'package:uni_pay/uni_pay.dart';
 
-import '../../../../core/models/uni_pay_data.dart';
-import '../../../../providers/uni_pay_provider.dart';
-import '../models/capture_order.dart';
-import '../models/t_checkout.dart';
-import '../models/tamara_data.dart';
+import '../../../../core/controllers/uni_pay_controller.dart';
+
 import 'package:http/http.dart' as http_client;
 
 class UniTamara {
@@ -131,14 +126,6 @@ class UniTamara {
     // }
   }
 
-  ///* Verify payment
-  static String getTamaraCDN({
-    required num price,
-    required UniPayLocale locale,
-  }) {
-    return "https://cdn.tamara.co/widget/tamara-introduction.html?lang=${locale.name}&price=$price&currency=SAR&countryCode=SA&colorType=default&showBorder=true&paymentType=installment&numberOfInstallments=3&disableInstallment=false&disablePaylater=true&widgetType=product-widget";
-  }
-
   ///* Authorise tamara order
   static Future<TamaraCallBackResponse> authoriseAndCaptureTamaraOrder({
     required TamaraCallBackResponse tamaraCallBackResponse,
@@ -228,5 +215,13 @@ class UniTamara {
 
     uniLog("Get transaction called ${uniPayResponse.toMap()}");
     return uniPayResponse;
+  }
+
+  ///* CDN of payment
+  static String getTamaraCDN({
+    required num price,
+    required UniPayLocale locale,
+  }) {
+    return "https://cdn.tamara.co/widget/tamara-introduction.html?lang=${locale.name}&price=$price&currency=SAR&countryCode=SA&colorType=default&showBorder=true&paymentType=installment&numberOfInstallments=3&disableInstallment=false&disablePaylater=true&widgetType=product-widget";
   }
 }
