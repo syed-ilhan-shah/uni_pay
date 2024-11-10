@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:uni_pay/src/constant/path.dart';
 import 'package:uni_pay/src/constant/uni_text.dart';
 import 'package:uni_pay/src/core/controllers/web_view_controller.dart';
@@ -10,8 +9,6 @@ import 'package:uni_pay/src/utils/extension.dart';
 import 'package:uni_pay/src/utils/extension/size_extension.dart';
 
 import '../../../../../uni_pay.dart';
-
-final _browser = ChromeSafariBrowser();
 
 class TamaraCampaign extends StatelessWidget {
   /// Is From Product Page
@@ -32,7 +29,7 @@ class TamaraCampaign extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        if (!isFromProductPage) _openTamaraPaymentDialog(context);
+        if (!isFromProductPage) _openTamaraPaymentDialog();
       },
       child: Container(
         width: 100.w,
@@ -57,7 +54,8 @@ class TamaraCampaign extends StatelessWidget {
                     children: isFromProductPage
                         ? [
                             TextSpan(
-                              text: UniPayText.sar(150),
+                              text: UniPayText.sar(
+                                  campaign.transactionAmount.bnplSplitBy3),
                               style: UniPayTheme.uniPayStyle.copyWith(
                                 fontWeight: FontWeight.w600,
                                 color: UniPayColorsPalletes.black,
@@ -74,8 +72,7 @@ class TamaraCampaign extends StatelessWidget {
                                 color: UniPayColorsPalletes.black,
                               ),
                               recognizer: TapGestureRecognizer()
-                                ..onTap =
-                                    () => _openTamaraPaymentDialog(context),
+                                ..onTap = () => _openTamaraPaymentDialog(),
                             ),
                           ]
                         : null,
@@ -101,7 +98,7 @@ class TamaraCampaign extends StatelessWidget {
   }
 
   /// Open the Tamara payment alert dialog
-  Future _openTamaraPaymentDialog(BuildContext context) async {
+  Future _openTamaraPaymentDialog() async {
     return WebViewController.openBrowserPopUp(
       url: isFromProductPage
           ? campaign.productPageCampaignCDN

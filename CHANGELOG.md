@@ -1,3 +1,8 @@
+## 3.0.2
+
+- Tamara BNPL snippets updates.
+- Fixes other minor bugs related to the design.
+
 ## 3.0.1
 
 - Added Tamara BNPL checkouts snippets supports.

@@ -1,0 +1,12 @@
+# .pubignore
+
+example/linux/.gitignore
+example/linux/CMakeLists.txt
+example/linux/flutter/CMakeLists.txt
+example/linux/flutter/generated_plugin_registrant.cc
+example/linux/flutter/generated_plugin_registrant.h
+example/linux/flutter/generated_plugins.cmake
+example/linux/main.cc
+example/linux/my_application.cc
+example/linux/my_application.h
+example/macos/.gitignore

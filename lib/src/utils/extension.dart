@@ -33,6 +33,9 @@ extension NumExt on num {
   num get halalaToAmount => (this / 100).formattedValue;
   Widget get vs => SizedBox(height: rSp);
   Widget get hs => SizedBox(width: rSp);
+
+  /// BNPL split by 3 installments
+  num get bnplSplitBy3 => (this / 3).formattedValue;
 }
 
 extension StringExt on String {

@@ -29,7 +29,7 @@ class _PaymentViewState extends State<PaymentView> {
   @override
   void initState() {
     super.initState();
-    // Initialize UniPay can be now also be done by calling this method
+    //! Initialize UniPay can be now also be done by calling this method
     // UniPayServices.initUniPay(uniPayData: uniPayData, context: context);
   }
 
