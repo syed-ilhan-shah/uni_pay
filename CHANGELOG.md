@@ -1,3 +1,7 @@
+## 3.0.3
+
+- Fixes minor bugs related to the Tabby BNPL gateway.
+
 ## 3.0.2
 
 - Tamara BNPL snippets updates.
