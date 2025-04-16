@@ -122,7 +122,7 @@ enum UniPayCurrency {
   }
 }
 
-enum UniPayItemType { product, service, notSpecified }
+enum UniPayItemType { product, service, notSpecified, reservation }
 
 enum UniPayEnvironment {
   production,
