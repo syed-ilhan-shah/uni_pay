@@ -8,6 +8,7 @@ A comprehensive library for seamless online payments, integrating Moyasar (Card 
 - **Apple Pay - [Integration](https://help.moyasar.com/en/article/moyasar-dashboard-apple-pay-certificate-activation-9l6sd5/) and [Xcode setup](https://help.apple.com/xcode/mac/9.3/#/deva43983eb7?sub=dev44ce8ef13)**
 - **Tamara - [Docs](https://docs.tamara.co/introduction/)**
 - **Tabby - [Docs](https://api-docs.tabby.ai/)**
+- **stcpay - [Docs](https://docs.moyasar.com/guides/stc-pay/basic-integration)**
 
 <img src="https://raw.githubusercontent.com/UNICODE-Venture/uni_pay/main/assets/screenshots/sc_ar.png" width=200, height=400 alt="UniPay Arabic by Saif"> 
 <img src="https://raw.githubusercontent.com/UNICODE-Venture/uni_pay/main/assets/screenshots/sc_en.png" width=200, height=400 alt="UniPay English by Saif">
@@ -65,8 +66,8 @@ Please have a look at our [/example](https://pub.dev/packages/uni_pay/example) p
           debugPrint("Payment Failed ----> ${res.toMap()}");
         },
         metaData: {
-          "customerId": "ABC_12345",
-          "customerName": "Saif",
+          "customer_uid": "ABC_12345",
+          "customer_name": "Saif",
         }
       ),
     )

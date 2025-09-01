@@ -29,7 +29,7 @@ class _PaymentViewState extends State<PaymentView> {
   @override
   void initState() {
     super.initState();
-    //! Initialize UniPay can be now also be done by calling this method
+    //! Initialize UniPay can be now also be done by calling this method, if you require to use `Apple Pay` only.
     // UniPayServices.initUniPay(uniPayData: uniPayData, context: context);
   }
 
@@ -43,6 +43,7 @@ class _PaymentViewState extends State<PaymentView> {
   }
 
   // To show the Apple Pay only view
+  // ignore: unused_element
   Widget _applePayOnlyView() {
     return Scaffold(
       appBar: AppBar(title: const Text("UniPay Example")),
@@ -65,7 +66,7 @@ UniPayData uniPayData = UniPayData(
     email: "example@mail.com",
     phoneNumber: "+966555666777",
     address: UniPayAddress(
-      addressName: "Olaya street, Al Ghadir",
+      addressName: "KAFD Area, Al Ghadir, Riyadh, Saudi Arabia",
       city: "Riyadh",
     ),
   ),
@@ -81,15 +82,17 @@ UniPayData uniPayData = UniPayData(
     moyasarCredential: MoyasarCredential(
       publishableKey: "pk_test",
       secretKey: "sk_test",
+      merchantUrl: MerchantUrl(notification: "https://my-app.com/webhook"),
     ),
     tamaraCredential: TamaraCredential(
-      token: "Bearer test",
+      token: "Bearer test_12345",
       merchantUrl: MerchantUrl(notification: "https://my-app.com/webhook"),
     ),
     tabbyCredential: TabbyCredential(
       psKey: "pk_test",
       secretKey: "sk_test",
       merchantCode: "your_merchant_code",
+      merchantUrl: MerchantUrl(notification: "https://my-app.com/webhook"),
     ),
   ),
   orderInfo: UniPayOrder(
@@ -112,7 +115,7 @@ UniPayData uniPayData = UniPayData(
     debugPrint("Payment Failed ----> ${res.toMap()}");
   },
   metaData: {
-    "customerId": "ABC_12345",
-    "customerName": "Mohammad Saif",
+    "customer_uid": "ABC_12345",
+    "customer_name": "Mohammad Saif",
   },
 );

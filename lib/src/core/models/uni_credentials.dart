@@ -70,9 +70,13 @@ class MoyasarCredential {
   ///* Moyasar secret key
   late String secretKey;
 
+  ///* Merchant `Urls` for Webhook notification
+  late MerchantUrl merchantUrl;
+
   MoyasarCredential({
     required this.publishableKey,
     required this.secretKey,
+    required this.merchantUrl,
   });
 
   MoyasarCredential.fromJson(Map<String, dynamic> json) {

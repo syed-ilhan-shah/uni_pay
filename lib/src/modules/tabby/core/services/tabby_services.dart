@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
 import 'package:uni_pay/src/utils/extension.dart';
@@ -46,23 +48,32 @@ class UniTabbyServices {
   /// Please make sure you provided the required data
   static Widget showProductPageTabbySnippet(
       {required TabbySnippet tabbySnippet}) {
-    return TabbyPresentationSnippet(
-      price: tabbySnippet.totalAmountWithVat.formattedString,
+    return TabbyProductPageSnippet(
+      price: tabbySnippet.totalAmountWithVat.toDouble(),
       currency: tabbySnippet.currency.tabbyCurrency,
       lang: tabbySnippet.locale.tabbyLang,
-      textColor: tabbySnippet.textColor,
-      backgroundColor: tabbySnippet.backgroundColor,
-      borderColor: tabbySnippet.borderColor,
+      merchantCode: tabbySnippet.merchantCode,
+      apiKey: tabbySnippet.psKey,
+      installmentsCount: tabbySnippet.installmentCount,
     );
+    // return TabbyPresentationSnippet(
+    //   price: tabbySnippet.totalAmountWithVat.formattedString,
+    //   currency: tabbySnippet.currency.tabbyCurrency,
+    //   lang: tabbySnippet.locale.tabbyLang,
+    //   textColor: tabbySnippet.textColor,
+    //   backgroundColor: tabbySnippet.backgroundColor,
+    //   borderColor: tabbySnippet.borderColor,
+    // );
   }
 
   /// Please make sure you provided the required data
   static Widget showTabbyCheckoutSnippet({required TabbySnippet tabbySnippet}) {
-    return TabbyCheckoutSnippet(
-      price: tabbySnippet.totalAmountWithVat.formattedString,
-      currency: tabbySnippet.currency.tabbyCurrency,
-      lang: tabbySnippet.locale.tabbyLang,
-    );
+    return showProductPageTabbySnippet(tabbySnippet: tabbySnippet);
+    // return TabbyCheckoutSnippet(
+    //   price: tabbySnippet.totalAmountWithVat.formattedString,
+    //   currency: tabbySnippet.currency.tabbyCurrency,
+    //   lang: tabbySnippet.locale.tabbyLang,
+    // );
   }
 
   /// Create Tabby session to proceed with payment
@@ -82,6 +93,9 @@ class UniTabbyServices {
         merchantCode: tabbyCredential.merchantCode,
         lang: uniPayData.locale.tabbyLang,
         payment: Payment(
+          description: uniPayData.metaData != null
+              ? json.encode(uniPayData.metaData)
+              : order.description,
           amount: order.transactionAmount.totalAmount.toString(),
           currency: order.transactionAmount.currency.tabbyCurrency,
           buyer: Buyer(

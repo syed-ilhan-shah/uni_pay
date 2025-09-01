@@ -35,7 +35,8 @@ class TamaraCampaign extends StatelessWidget {
         width: 100.w,
         padding: EdgeInsets.all(10.rSp),
         decoration: BoxDecoration(
-          border: Border.all(color: UniPayColorsPalletes.black.withOpacity(.1)),
+          border:
+              Border.all(color: UniPayColorsPalletes.black.colorOpacity(.1)),
           borderRadius: 10.br,
         ),
         child: Row(

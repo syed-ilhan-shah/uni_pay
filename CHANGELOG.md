@@ -1,3 +1,9 @@
+## 4.0.0
+
+- Upgraded all the third party payment gateways to latest version.
+- Added metadata to the Tabby.
+- Fixes minor bugs.
+
 ## 3.0.3
 
 - Fixes minor bugs related to the Tabby BNPL gateway.

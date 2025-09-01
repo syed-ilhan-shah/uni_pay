@@ -84,7 +84,7 @@ class UniPayDesignSystem {
           activeColor: activeColor,
           value: status,
           shape: const CircleBorder(),
-          side: BorderSide(color: Colors.grey.withOpacity(0.3)),
+          side: BorderSide(color: Colors.grey.colorOpacity(0.3)),
           onChanged: (v) => onChange?.call(v ?? false),
           overlayColor: UniPayColorsPalletes.transparentMaterialColor,
         ),
