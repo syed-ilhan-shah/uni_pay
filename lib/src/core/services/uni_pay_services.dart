@@ -17,19 +17,12 @@ class UniPayServices {
     return UniPayControllers.setUniPayData(uniPayData, context);
   }
 
+  // ----------------- Tamara related sevices ----------------- //
+
   ///* Capture tamara order, if your product is subscription based then you can use this method to capture the order instantly
   static Future<TamaraCaptureOrderResponse> captureTamaraOrder(
       {required TamaraCaptureOrder tamaraCaptureOrder}) async {
     return await UniTamara.captureOrder(tamaraCaptureOrder);
-  }
-
-  ///* Get the payment by meta-data, this specific method is used for Moyasar payment gateway only
-  static Future<UniPayResponse> getPaymentDetailsByMetaDataOrderId({
-    required MoyasarCredential credential,
-    required String orderId,
-  }) async {
-    return UniPayMoyasarGateway.searchPaymentByMetaData(
-        credential: credential, orderId: orderId);
   }
 
   ///* Get tamara order transaction information
@@ -52,5 +45,46 @@ class UniPayServices {
   static Future openTamaraCheckoutPopUp({required TamaraSnippet snippet}) {
     return WebViewController.openBrowserPopUp(
         url: snippet.checkoutPageCampaignCDN);
+  }
+
+  // ----------------- Tabby related sevices ----------------- //
+
+  /// Get the transaction details from [Tabby] gateway by providing the required data.
+  static Future<TabbyTransaction> getTabbyTransactionDetails(
+      {required TabbyDto tabbyDto}) {
+    return UniTabbyServices.getTabbyTransactionDetails(tabbyDto: tabbyDto);
+  }
+
+  /// Capture the transaction to Tabby, so that they will complete the payment for your merchant.
+  static Future<TabbyTransaction> captureTabbyPayment(
+      {required TabbyDto tabbyDto}) {
+    return UniTabbyServices.captureTabbyPayment(tabbyDto: tabbyDto);
+  }
+
+  /// Initialize the Tabby SDK to prepare for payment.
+  ///
+  /// Don't use this method if you aren't aware of what you're doing ^_^
+  static void initializeTabbySDK({TabbyCredential? credentials}) {
+    return UniTabbyServices.initTabbySDK(credentials);
+  }
+
+  // ----------------- Moyasar related sevices ----------------- //
+
+  /// Get the payment by [transaction id] from the `moyasar` gateway.
+  static Future<UniPayResponse> getMoyasarPaymentByTransactionId({
+    required MoyasarCredential credential,
+    required String transactionId,
+  }) async {
+    return UniPayMoyasarGateway.getTrxnById(
+        credential: credential, trxnId: transactionId);
+  }
+
+  ///* Get the payment by meta-data, this specific method is used for Moyasar payment gateway only
+  static Future<UniPayResponse> getMoyasarPaymentByMetaDataOrderId({
+    required MoyasarCredential credential,
+    required String orderId,
+  }) async {
+    return UniPayMoyasarGateway.searchPaymentByMetaData(
+        credential: credential, orderId: orderId);
   }
 }

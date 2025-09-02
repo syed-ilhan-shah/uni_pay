@@ -1,3 +1,8 @@
+## 4.0.1
+
+- Fixes minor bugs and added meta data support for tabby.
+- Added few Api to view transaction details from all gateways.
+
 ## 4.0.0
 
 - Upgraded all the third party payment gateways to latest version.

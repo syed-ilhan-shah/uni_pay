@@ -39,6 +39,8 @@ class _PaymentViewState extends State<PaymentView> {
       context: context,
       uniPayData: uniPayData,
     );
+
+    // ----- Standalone Apple Pay view ----- //
     // return _applePayOnlyView();
   }
 
@@ -57,7 +59,7 @@ class _PaymentViewState extends State<PaymentView> {
   }
 }
 
-/// UniPayData to be used for payment request
+/// UniPayData to be used for payment request, make sure to fill all the required fields properly.
 UniPayData uniPayData = UniPayData(
   appName: "UniPay",
   locale: UniPayLocale.en,
@@ -81,8 +83,7 @@ UniPayData uniPayData = UniPayData(
     ],
     moyasarCredential: MoyasarCredential(
       publishableKey: "pk_test",
-      secretKey: "sk_test",
-      merchantUrl: MerchantUrl(notification: "https://my-app.com/webhook"),
+      secretKey: "sk_live",
     ),
     tamaraCredential: TamaraCredential(
       token: "Bearer test_12345",

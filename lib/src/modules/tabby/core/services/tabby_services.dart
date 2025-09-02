@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:tabby_flutter_inapp_sdk/tabby_flutter_inapp_sdk.dart';
 import 'package:uni_pay/src/utils/extension.dart';
@@ -12,7 +10,6 @@ import 'package:uni_pay/uni_pay.dart'
         UniPayCustomerInfo,
         UniPayData,
         UniPayOrder,
-        UniPayPaymentMethodsItr,
         UniPayResponse,
         UniPayStatus;
 
@@ -30,14 +27,11 @@ class UniTabbyServices {
   static TabbySDK? _tabbySdk;
 
   /// Init Tabby SDK to prepare for payment
-  static void initTabbySDK(UniPayData uniPayData) {
-    if (uniPayData.credentials.paymentMethods.isTabbyGateway &&
-        _tabbySdk == null) {
-      final tabbyCredentials = uniPayData.credentials.tabbyCredential!;
-      uniLog(tabbyCredentials.psKey);
+  static void initTabbySDK(TabbyCredential? credentials) {
+    if (credentials != null && _tabbySdk == null) {
       _tabbySdk = TabbySDK();
       _tabbySdk?.setup(
-        withApiKey: tabbyCredentials.psKey,
+        withApiKey: credentials.psKey,
         environment: Environment.production,
       );
     }
@@ -93,9 +87,8 @@ class UniTabbyServices {
         merchantCode: tabbyCredential.merchantCode,
         lang: uniPayData.locale.tabbyLang,
         payment: Payment(
-          description: uniPayData.metaData != null
-              ? json.encode(uniPayData.metaData)
-              : order.description,
+          description: order.description,
+          // meta: uniPayData.metaData,
           amount: order.transactionAmount.totalAmount.toString(),
           currency: order.transactionAmount.currency.tabbyCurrency,
           buyer: Buyer(
@@ -176,9 +169,7 @@ class UniTabbyServices {
   static Future<TabbySessionData?> checkPreScoreSession(
       UniPayData uniPayData) async {
     // Initialize Tabby SDK
-    if (_tabbySdk == null) {
-      initTabbySDK(uniPayData);
-    }
+    initTabbySDK(uniPayData.credentials.tabbyCredential);
     return createTabbySession(uniPayData);
   }
 

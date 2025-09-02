@@ -197,7 +197,7 @@ extension UniPayCurrentStateExt on UniPayCurrentState {
   bool get isNotSpecified => this == UniPayCurrentState.notSpecified;
 }
 
-extension UniPayPaymentMethodsItr on List<UniPayPaymentMethods> {
+extension UniPayPaymentMethodsExt on List<UniPayPaymentMethods> {
   /// Check if any of the payment methods is `Moyasar`
   bool get isMoyasarGateway => any((t) => t.isMoyasar);
 

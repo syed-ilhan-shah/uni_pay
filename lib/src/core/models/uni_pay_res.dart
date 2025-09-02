@@ -15,6 +15,7 @@ class UniPayResponse {
   late String invoiceId;
   late UniPayTransactionDetails transactionDetails;
   late String errorMessage;
+  late Map<String, dynamic>? metadata;
 
   UniPayResponse({
     this.transactionId = "",
@@ -28,6 +29,7 @@ class UniPayResponse {
     this.invoiceId = "",
     this.errorMessage = "",
     UniPayTransactionDetails? transactionDetails,
+    this.metadata,
   }) : transactionDetails = transactionDetails ?? UniPayTransactionDetails();
 
   UniPayResponse.fromMap(Map<String, dynamic> json) {
@@ -47,6 +49,7 @@ class UniPayResponse {
     invoiceId = json['invoice_id'] ?? "";
     errorMessage = json['errorMessage'] ?? "";
     transactionDetails = UniPayTransactionDetails.fromMap(json['source'] ?? {});
+    metadata = json['metadata'];
   }
 
   UniPayResponse.fromTamara(Map<String, dynamic> json, String orderId) {
@@ -87,6 +90,7 @@ class UniPayResponse {
         'invoice_id': invoiceId,
         'errorMessage': errorMessage,
         'source': transactionDetails.toMap(),
+        'metadata': metadata,
       };
 }
 
@@ -131,7 +135,7 @@ class UniPayTransactionDetails {
   }
 
   Map<String, dynamic> toMap() => {
-        'type': type.index,
+        'type': type.name,
         'cardType': cardType.name,
         'name': name,
         'cardNumber': cardNumber,

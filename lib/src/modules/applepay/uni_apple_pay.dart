@@ -33,7 +33,11 @@ class _UniApplePayState extends State<UniApplePay> {
     super.initState();
     // Init UniPay with the order details payment gateway credentials before making Apple pay request
     if (widget.uniPayData != null && widget.context != null) {
-      UniPayControllers.setUniPayData(widget.uniPayData!, widget.context!);
+      UniPayControllers.setUniPayData(
+        widget.uniPayData!,
+        widget.context!,
+        isInitTabbySdk: false,
+      );
     }
   }
 
