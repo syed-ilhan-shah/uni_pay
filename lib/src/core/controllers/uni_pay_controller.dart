@@ -23,12 +23,18 @@ class UniPayControllers {
   }
 
   ///* Set UniPayData
-  static void setUniPayData(UniPayData data, BuildContext appContext) {
+  static void setUniPayData(
+    UniPayData data,
+    BuildContext appContext, {
+    bool isInitTabbySdk = true,
+  }) {
     _uniPayData = data;
     context = appContext;
 
     // Initialize Tabby SDK
-    UniTabbyServices.initTabbySDK(data);
+    if (isInitTabbySdk && data.credentials.paymentMethods.isTabbyGateway) {
+      UniTabbyServices.initTabbySDK(data.credentials.tabbyCredential);
+    }
   }
 
   ///* Initialize Tamara all payment methods

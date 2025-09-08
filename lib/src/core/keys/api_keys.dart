@@ -36,6 +36,7 @@ class ApiKeys {
       description: uniPayData.orderInfo.description,
       applePay: ApplePayConfig(
         manual: false,
+        saveCard: false,
         label: uniPayData.appName,
         merchantId: uniPayData.credentials.applePayMerchantIdentifier,
       ),
@@ -46,14 +47,20 @@ class ApiKeys {
   }
 
   ///* Web view options
-  static InAppWebViewGroupOptions webViewGroupOptions =
-      InAppWebViewGroupOptions(
-    crossPlatform: InAppWebViewOptions(
-        useShouldOverrideUrlLoading: true, cacheEnabled: false),
-    android: AndroidInAppWebViewOptions(disableDefaultErrorPage: true),
-    ios: IOSInAppWebViewOptions(
-        applePayAPIEnabled: true, allowsInlineMediaPlayback: true),
+  static InAppWebViewSettings webViewGroupOptions = InAppWebViewSettings(
+    disableDefaultErrorPage: true,
+    useShouldOverrideUrlLoading: true,
+    cacheEnabled: false,
+    applePayAPIEnabled: true,
+    allowsInlineMediaPlayback: true,
   );
+  // InAppWebViewGroupOptions =>    InAppWebViewGroupOptions(
+  //   crossPlatform: InAppWebViewOptions(
+  //       useShouldOverrideUrlLoading: true, cacheEnabled: false),
+  //   android: AndroidInAppWebViewOptions(disableDefaultErrorPage: true),
+  //   ios: IOSInAppWebViewOptions(
+  //       applePayAPIEnabled: true, allowsInlineMediaPlayback: true),
+  // );
 
   ///* Moyasar
   static String moyasarBaseUrl = "https://api.moyasar.com/v1";

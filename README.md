@@ -1,6 +1,8 @@
-### Payment Gateway Library Crafted by the **[UNICODE Team](https://www.unicodesolutions.co/)** for Seamless Transactions
+### Payment Gateway Library Crafted by the **[UNICODE Team](https://www.unicodesolutions.co/)** for Seamless Local, GCC and International Transactions.
 
-A comprehensive library for seamless online payments, integrating Moyasar (Card & Apple pay), Tamara, and Tabby payment gateways. Effortlessly handle transactions, enhance user experience, and streamline your payment processing with our robust and versatile solution.
+##### A unified payment library built for speed and simplicity.
+
+Seamlessly integrate Moyasar (Cards, STC Pay, Apple Pay), Tamara, and Tabby in minutes -> not days. Effortlessly manage transactions, elevate your checkout experience, and simplify payment operations with our robust, flexible, and developer-friendly solution.lution.
 
 # **Features support**
 
@@ -8,6 +10,7 @@ A comprehensive library for seamless online payments, integrating Moyasar (Card 
 - **Apple Pay - [Integration](https://help.moyasar.com/en/article/moyasar-dashboard-apple-pay-certificate-activation-9l6sd5/) and [Xcode setup](https://help.apple.com/xcode/mac/9.3/#/deva43983eb7?sub=dev44ce8ef13)**
 - **Tamara - [Docs](https://docs.tamara.co/introduction/)**
 - **Tabby - [Docs](https://api-docs.tabby.ai/)**
+- **stcpay - [Docs](https://docs.moyasar.com/guides/stc-pay/basic-integration)**
 
 <img src="https://raw.githubusercontent.com/UNICODE-Venture/uni_pay/main/assets/screenshots/sc_ar.png" width=200, height=400 alt="UniPay Arabic by Saif"> 
 <img src="https://raw.githubusercontent.com/UNICODE-Venture/uni_pay/main/assets/screenshots/sc_en.png" width=200, height=400 alt="UniPay English by Saif">
@@ -65,14 +68,26 @@ Please have a look at our [/example](https://pub.dev/packages/uni_pay/example) p
           debugPrint("Payment Failed ----> ${res.toMap()}");
         },
         metaData: {
-          "customerId": "ABC_12345",
-          "customerName": "Saif",
+          "customer_uid": "ABC_12345",
+          "customer_name": "Saif",
         }
       ),
     )
 ```
 
-### Tabby Features
+### Moyasar Features 🚀
+
+- Get the transaction details by id:
+
+```dart
+UniPayResponse transaction =
+                    await UniPayServices.getMoyasarPaymentByTransactionId(
+                  credential: MoyasarCredential(secretKey: "sk_live"),
+                  transactionId: "trxn_id",
+                );
+```
+
+### Tabby Features 🚀
 
 - Get the transaction details:
 
@@ -124,7 +139,7 @@ Please have a look at our [/example](https://pub.dev/packages/uni_pay/example) p
               )
 ```
 
-### Tamara Features
+### Tamara Features 🚀
 
 - Show the Product page Banner of Tamara:
 

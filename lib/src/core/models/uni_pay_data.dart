@@ -35,8 +35,8 @@ class UniPayData {
   ///* Order Meta Data in key value pair, example:
   /// ```dart
   /// {
-  ///   "customerId": "ABC_12345",
-  ///   "customerName": "Mohammad Saif"
+  ///   "customer_uid": "ABC_12345",
+  ///   "customer_name": "Mohammad Saif"
   /// }
   /// ```
   /// - Currently supports only `Moyasar` and, `Tamara`, but [Tabby] will be added soon, insha'Allah.

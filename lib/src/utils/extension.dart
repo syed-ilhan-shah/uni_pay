@@ -112,3 +112,8 @@ extension BuildContextExt on BuildContext {
   void uniPushReplacement(Widget widget) => Navigator.pushReplacement(
       this, MaterialPageRoute(builder: (_) => widget));
 }
+
+extension ColorExt on Color {
+  /// Add the opacity to the color
+  Color colorOpacity(double value) => withAlpha((255.0 * value).round());
+}

@@ -71,8 +71,8 @@ class MoyasarCredential {
   late String secretKey;
 
   MoyasarCredential({
-    required this.publishableKey,
-    required this.secretKey,
+    this.publishableKey = "",
+    this.secretKey = "",
   });
 
   MoyasarCredential.fromJson(Map<String, dynamic> json) {

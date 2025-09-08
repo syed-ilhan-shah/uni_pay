@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uni_pay/uni_pay.dart';
 
-class TabbySnippet {
+class TabbySnippet extends TabbyCredential {
   /// Total amount with VAT
   final num totalAmountWithVat;
 
@@ -20,13 +20,20 @@ class TabbySnippet {
   /// Text color of the snippet, default is `0xFF292929`
   final Color textColor;
 
-  const TabbySnippet({
+  /// Installment count, default is `4`
+  final int installmentCount;
+
+  TabbySnippet({
     required this.totalAmountWithVat,
     this.currency = UniPayCurrency.sar,
     this.locale = UniPayLocale.ar,
     this.borderColor = const Color(0xFFD6DED6),
     this.backgroundColor = const Color(0xFFFFFFFF),
     this.textColor = const Color(0xFF292929),
+    super.merchantCode = "sa",
+    super.psKey = "",
+    this.installmentCount = 4,
+    super.merchantUrl,
     Key? key,
   });
 }

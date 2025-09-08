@@ -104,4 +104,34 @@ class UniPayMoyasarGateway {
     }
     return uniPayResponse;
   }
+
+  /// Get the payment by transaction id from the `moyasar` gateway.
+  static Future<UniPayResponse> getTrxnById({
+    required MoyasarCredential credential,
+    required String trxnId,
+  }) async {
+    UniPayResponse uniPayResponse = UniPayResponse(
+      status: UniPayStatus.failed,
+      errorMessage: UniPayText.noTransactionFound,
+    );
+    try {
+      Uri paymentsUrl = Uri.parse("${ApiKeys.moyasarPaymentsUrl}/$trxnId");
+
+      Map<String, String> headerData = {
+        "authorization": credential.moyasarAuthKey
+      };
+      http_client.Response response =
+          await http_client.get(paymentsUrl, headers: headerData);
+      Map<String, dynamic> payResData = json.decode(response.body) ?? {};
+      if (payResData["id"] != null) {
+        uniPayResponse = UniPayResponse.fromMap(payResData);
+      } else {
+        uniPayResponse.errorMessage =
+            payResData["message"] ?? UniPayText.noTransactionFound;
+      }
+    } catch (e) {
+      uniPayResponse.errorMessage = e.toString();
+    }
+    return uniPayResponse;
+  }
 }

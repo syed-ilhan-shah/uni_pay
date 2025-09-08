@@ -10,7 +10,6 @@ import 'package:uni_pay/uni_pay.dart'
         UniPayCustomerInfo,
         UniPayData,
         UniPayOrder,
-        UniPayPaymentMethodsItr,
         UniPayResponse,
         UniPayStatus;
 
@@ -28,14 +27,11 @@ class UniTabbyServices {
   static TabbySDK? _tabbySdk;
 
   /// Init Tabby SDK to prepare for payment
-  static void initTabbySDK(UniPayData uniPayData) {
-    if (uniPayData.credentials.paymentMethods.isTabbyGateway &&
-        _tabbySdk == null) {
-      final tabbyCredentials = uniPayData.credentials.tabbyCredential!;
-      uniLog(tabbyCredentials.psKey);
+  static void initTabbySDK(TabbyCredential? credentials) {
+    if (credentials != null && _tabbySdk == null) {
       _tabbySdk = TabbySDK();
       _tabbySdk?.setup(
-        withApiKey: tabbyCredentials.psKey,
+        withApiKey: credentials.psKey,
         environment: Environment.production,
       );
     }
@@ -46,23 +42,32 @@ class UniTabbyServices {
   /// Please make sure you provided the required data
   static Widget showProductPageTabbySnippet(
       {required TabbySnippet tabbySnippet}) {
-    return TabbyPresentationSnippet(
-      price: tabbySnippet.totalAmountWithVat.formattedString,
+    return TabbyProductPageSnippet(
+      price: tabbySnippet.totalAmountWithVat.toDouble(),
       currency: tabbySnippet.currency.tabbyCurrency,
       lang: tabbySnippet.locale.tabbyLang,
-      textColor: tabbySnippet.textColor,
-      backgroundColor: tabbySnippet.backgroundColor,
-      borderColor: tabbySnippet.borderColor,
+      merchantCode: tabbySnippet.merchantCode,
+      apiKey: tabbySnippet.psKey,
+      installmentsCount: tabbySnippet.installmentCount,
     );
+    // return TabbyPresentationSnippet(
+    //   price: tabbySnippet.totalAmountWithVat.formattedString,
+    //   currency: tabbySnippet.currency.tabbyCurrency,
+    //   lang: tabbySnippet.locale.tabbyLang,
+    //   textColor: tabbySnippet.textColor,
+    //   backgroundColor: tabbySnippet.backgroundColor,
+    //   borderColor: tabbySnippet.borderColor,
+    // );
   }
 
   /// Please make sure you provided the required data
   static Widget showTabbyCheckoutSnippet({required TabbySnippet tabbySnippet}) {
-    return TabbyCheckoutSnippet(
-      price: tabbySnippet.totalAmountWithVat.formattedString,
-      currency: tabbySnippet.currency.tabbyCurrency,
-      lang: tabbySnippet.locale.tabbyLang,
-    );
+    return showProductPageTabbySnippet(tabbySnippet: tabbySnippet);
+    // return TabbyCheckoutSnippet(
+    //   price: tabbySnippet.totalAmountWithVat.formattedString,
+    //   currency: tabbySnippet.currency.tabbyCurrency,
+    //   lang: tabbySnippet.locale.tabbyLang,
+    // );
   }
 
   /// Create Tabby session to proceed with payment
@@ -82,6 +87,8 @@ class UniTabbyServices {
         merchantCode: tabbyCredential.merchantCode,
         lang: uniPayData.locale.tabbyLang,
         payment: Payment(
+          description: order.description,
+          // meta: uniPayData.metaData,
           amount: order.transactionAmount.totalAmount.toString(),
           currency: order.transactionAmount.currency.tabbyCurrency,
           buyer: Buyer(
@@ -162,9 +169,7 @@ class UniTabbyServices {
   static Future<TabbySessionData?> checkPreScoreSession(
       UniPayData uniPayData) async {
     // Initialize Tabby SDK
-    if (_tabbySdk == null) {
-      initTabbySDK(uniPayData);
-    }
+    initTabbySDK(uniPayData.credentials.tabbyCredential);
     return createTabbySession(uniPayData);
   }
 
