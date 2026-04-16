@@ -1,3 +1,51 @@
+## 🏷️ Version 5.1.1
+
+### 🚀 Highlights
+
+- Our most powerful **UI update** ever.
+- Complete **UI redesign** for a modern and seamless experience.
+
+### 🎨 Customization
+
+- Added **theme customization** options.
+- Added **text customization** options.
+
+### 💳 New Features
+
+- Built-in **coupon support**, including loading and success states.
+- Added **customer loyalty history** option for the **BNPL gateway**.
+
+### 🛠️ Fixes
+
+- Minor bug fixes and performance improvements across multiple modules.
+
+## 🏷️ Version 5.1.0
+
+### 🚀 Highlights
+
+- Our most powerful **UI update** ever.
+- Complete **UI redesign** for a modern and seamless experience.
+
+### 🎨 Customization
+
+- Added **theme customization** options.
+- Added **text customization** options.
+
+### 💳 New Features
+
+- Built-in **coupon support**, including loading and success states.
+- Added **customer loyalty history** option for the **BNPL gateway**.
+
+### 🛠️ Fixes
+
+- Minor bug fixes and performance improvements across multiple modules.
+
+## 5.0.0
+
+- Migrated to our very own fork of tabby payment sdk.
+- Fixes bugs for navigation, payment failure, and cross verification.
+- Added some enhancement to all over the libraries flows.
+
 ## 4.0.1
 
 - Fixes minor bugs and added meta data support for tabby.

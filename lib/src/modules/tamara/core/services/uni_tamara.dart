@@ -35,7 +35,7 @@ class UniTamara {
       items: order.items
           .map((item) => Items(
                 referenceId: item.id,
-                type: item.itemType.name,
+                type: item.itemType,
                 name: item.name,
                 sku: item.sku,
                 quantity: item.quantity,
@@ -81,7 +81,7 @@ class UniTamara {
     TamaraCheckoutData checkout = TamaraCheckoutData();
     try {
       String data = jsonEncode(tamaraData.toJson());
-      // uniPrint(data);
+      uniLog(tamaraData.toJson());
       http_client.Response response = await http_client.post(
         Uri.parse(ApiKeys.tamaraCheckoutUrl),
         headers: ApiKeys.tamaraHeaders,
@@ -106,16 +106,25 @@ class UniTamara {
   }
 
   ///* Process the Tamara payment
-  static void processTamaraPayment(BuildContext context, UniPayStatus status,
-      {String? transactionId}) {
+  static void processTamaraPayment(
+    BuildContext context,
+    UniPayStatus status, {
+    String? transactionId,
+    bool isFromRoot = true,
+  }) {
     UniPayResponse response = UniPayResponse(status: status);
     //* Success
     if (status.isSuccess) {
+      response.transactionDetails.type = UniPayPaymentMethods.tamara;
       response.transactionId = transactionId ??
           "TAMARA_TRXN_${UniPayControllers.uniPayData.orderInfo.orderId}}";
     }
-    UniPayControllers.handlePaymentsResponseAndCallback(context,
-        response: response);
+    UniPayControllers.handlePaymentsResponseAndCallback(
+      context,
+      response: response,
+      isFromRootView: isFromRoot,
+      paymentMethod: UniPayPaymentMethods.tamara,
+    );
     // //* Cancelled
     // else if (status.isCancelled) {
     //   uniPayProivder.uniPayData.onPaymentFailed.call(response);
@@ -154,6 +163,8 @@ class UniTamara {
         paymentStatus = captureResponse.paymentStatus;
       }
       tamaraCallBackResponse.paymentStatus = paymentStatus;
+    } else {
+      tamaraCallBackResponse.paymentStatus = UniPayStatus.failed;
     }
 
     return tamaraCallBackResponse;

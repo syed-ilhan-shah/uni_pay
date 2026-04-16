@@ -33,7 +33,16 @@ class UniPayControllers {
 
     // Initialize Tabby SDK
     if (isInitTabbySdk && data.credentials.paymentMethods.isTabbyGateway) {
-      UniTabbyServices.initTabbySDK(data.credentials.tabbyCredential);
+      UniTabbyServices.initTabbySDK(
+        data.credentials.tabbyCredential,
+        env: data.environment.tabbyEnv,
+      );
+    }
+
+    // Coupon default visibility
+    if (data.credentials.couponCredential != null) {
+      toggleCouponFieldStatus(
+          data.credentials.couponCredential!.isCouponFieldDefaultOpen);
     }
   }
 
@@ -66,16 +75,32 @@ class UniPayControllers {
     BuildContext context, {
     required UniPayResponse response,
     bool isFromApplePay = false,
+    bool isFromRootView = false,
+    required UniPayPaymentMethods paymentMethod,
   }) async {
     uniPayStatus = response.status;
 
     if (!isFromApplePay) {
       // Navigate to payment result view
-      context.uniPushReplacement(const PaymentResultView());
+      context
+          .uniPushReplacement(PaymentResultView(paymentMethod: paymentMethod));
       await Future.delayed(const Duration(seconds: 2));
 
       /// Pop the payment result view and go back to the previous screen
-      UniPayControllers.context.uniParentPop();
+      // UniPayControllers.context.uniParentPop();
+      // On success go back to the app screen
+
+      if (uniPayStatus.isSuccess) {
+        UniPayControllers.context.uniParentPop();
+      }
+      // On failed go back to the payment screen again!
+      else {
+        if (isFromRootView) {
+          UniPayControllers.context.uniParentPop();
+        } else {
+          uniStateKey.currentContext?.uniParentPop();
+        }
+      }
     }
 
     //* Success
@@ -114,5 +139,16 @@ class UniPayControllers {
         ? UniPayCurrentState.success
         : UniPayCurrentState.failed;
     return tabbySession;
+  }
+
+  // ------------- Coupon Code Management ------------- //
+  static final couponTextController = TextEditingController();
+  static ValueNotifier<bool> isCouponFieldVisible = ValueNotifier(false);
+
+  ///  Change coupon field visibility
+  static toggleCouponFieldStatus(bool isDefaultOpn) {
+    if (isCouponFieldVisible.value != isDefaultOpn) {
+      isCouponFieldVisible.value = isDefaultOpn;
+    }
   }
 }

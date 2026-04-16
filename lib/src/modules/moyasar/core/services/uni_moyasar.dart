@@ -9,18 +9,21 @@ import 'package:http/http.dart' as http_client;
 
 import '../../../../core/keys/api_keys.dart';
 import '../../../../core/controllers/uni_pay_controller.dart';
-import '../../../../utils/utils.dart';
 
 class UniPayMoyasarGateway {
   UniPayMoyasarGateway._();
 
   ///* Process the moyasar payment
-  static Future processMoyasarPayment(BuildContext context,
-      {required dynamic result, bool isFromApplePay = false}) async {
+  static Future processMoyasarPayment(
+    BuildContext context, {
+    required dynamic result,
+    bool isFromApplePay = false,
+    bool isFromRoot = true,
+  }) async {
     if (result is! PaymentCanceledError) {
       UniPayResponse uniPayResponse = UniPayResponse();
       if (result is PaymentResponse) {
-        uniLog(result.status);
+        // uniLog(result.status);
         if (result.status == PaymentStatus.paid) {
           uniPayResponse.transactionId = result.id;
           uniPayResponse.amount = result.amount.halalaToAmount;
@@ -69,6 +72,7 @@ class UniPayMoyasarGateway {
         context,
         response: uniPayResponse,
         isFromApplePay: isFromApplePay,
+        paymentMethod: UniPayPaymentMethods.card,
       );
     }
   }
