@@ -33,10 +33,10 @@ class UniPayControllers {
 
     // Initialize Tabby SDK
     if (isInitTabbySdk && data.credentials.paymentMethods.isTabbyGateway) {
-      UniTabbyServices.initTabbySDK(
-        data.credentials.tabbyCredential,
-        env: data.environment.tabbyEnv,
-      );
+      // UniTabbyServices.initTabbySDK(
+      //   data.credentials.tabbyCredential,
+      //   env: data.environment.tabbyEnv,
+      // );
     }
 
     // Coupon default visibility
@@ -129,17 +129,17 @@ class UniPayControllers {
       ValueNotifier<UniPayCurrentState>(UniPayCurrentState.notSpecified);
 
   ///* Tamara checkout data
-  static TabbySessionData? tabbySession;
-  static Future<TabbySessionData?> initTabbyCheckoutSession() async {
-    tabbyNotifier.value = UniPayCurrentState.loading;
+  // static TabbySessionData? tabbySession;
+  // static Future<TabbySessionData?> initTabbyCheckoutSession() async {
+  //   tabbyNotifier.value = UniPayCurrentState.loading;
 
-    // Create Tabby session
-    tabbySession = await UniTabbyServices.createTabbySession(uniPayData);
-    tabbyNotifier.value = tabbySession != null
-        ? UniPayCurrentState.success
-        : UniPayCurrentState.failed;
-    return tabbySession;
-  }
+  //   // Create Tabby session
+  //   tabbySession = await UniTabbyServices.createTabbySession(uniPayData);
+  //   tabbyNotifier.value = tabbySession != null
+  //       ? UniPayCurrentState.success
+  //       : UniPayCurrentState.failed;
+  //   return tabbySession;
+  // }
 
   // ------------- Coupon Code Management ------------- //
   static final couponTextController = TextEditingController();

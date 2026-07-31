@@ -130,9 +130,9 @@ class _UniPayPaymentOptionsViewState extends State<UniPayPaymentOptionsView> {
                     context.uniPush(const UniPayTamara(isFromRoot: false));
                   }
                   // Go to Tabby view
-                  else if (paymentMethod.isTabby) {
-                    context.uniPush(const UniPayTabby(isFromRoot: false));
-                  }
+                  // else if (paymentMethod.isTabby) {
+                  //   context.uniPush(const UniPayTabby(isFromRoot: false));
+                  // }
                   // Go to Moyasar view
                   else if (paymentMethod.isCard) {
                     context.uniPush(const UniPayCard(isFromRoot: false));

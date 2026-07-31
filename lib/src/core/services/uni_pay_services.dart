@@ -50,23 +50,23 @@ class UniPayServices {
   // ----------------- Tabby related sevices ----------------- //
 
   /// Get the transaction details from [Tabby] gateway by providing the required data.
-  static Future<TabbyTransaction> getTabbyTransactionDetails(
-      {required TabbyDto tabbyDto}) {
-    return UniTabbyServices.getTabbyTransactionDetails(tabbyDto: tabbyDto);
-  }
+  // static Future<TabbyTransaction> getTabbyTransactionDetails(
+  //     {required TabbyDto tabbyDto}) {
+  //   return UniTabbyServices.getTabbyTransactionDetails(tabbyDto: tabbyDto);
+  // }
 
-  /// Capture the transaction to Tabby, so that they will complete the payment for your merchant.
-  static Future<TabbyTransaction> captureTabbyPayment(
-      {required TabbyDto tabbyDto}) {
-    return UniTabbyServices.captureTabbyPayment(tabbyDto: tabbyDto);
-  }
+  // /// Capture the transaction to Tabby, so that they will complete the payment for your merchant.
+  // static Future<TabbyTransaction> captureTabbyPayment(
+  //     {required TabbyDto tabbyDto}) {
+  //   return UniTabbyServices.captureTabbyPayment(tabbyDto: tabbyDto);
+  // }
 
-  /// Initialize the Tabby SDK to prepare for payment.
-  ///
-  /// Don't use this method if you aren't aware of what you're doing ^_^
-  static void initializeTabbySDK({TabbyCredential? credentials}) {
-    return UniTabbyServices.initTabbySDK(credentials);
-  }
+  // /// Initialize the Tabby SDK to prepare for payment.
+  // ///
+  // /// Don't use this method if you aren't aware of what you're doing ^_^
+  // static void initializeTabbySDK({TabbyCredential? credentials}) {
+  //   return UniTabbyServices.initTabbySDK(credentials);
+  // }
 
   // ----------------- Moyasar related sevices ----------------- //
 

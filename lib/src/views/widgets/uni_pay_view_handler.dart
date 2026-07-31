@@ -50,7 +50,7 @@ class _UniPayViewHandlerState extends State<UniPayViewHandler> {
 
     // Case 2:  Tabby checkout
     else if (isSingleGatewayPayment && paymentMethods.first.isTabby) {
-      context.uniPushReplacement(const UniPayTabby());
+      // context.uniPushReplacement(const UniPayTabby());
     }
     // Case 3: Moyasar checkout
     else if ((isSingleGatewayPayment && paymentMethods.first.isMoyasar) ||

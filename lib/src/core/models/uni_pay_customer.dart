@@ -1,4 +1,4 @@
-import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
+// import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
 
 import 'uni_pay_address.dart';
 
@@ -55,9 +55,9 @@ class UniPayCustomerInfo {
   }
 
   /// Convert to Tabby Buyer model
-  Buyer get tabbyBuyer => Buyer(
-        email: email,
-        phone: phoneNumber,
-        name: fullName,
-      );
+  // Buyer get tabbyBuyer => Buyer(
+  //       email: email,
+  //       phone: phoneNumber,
+  //       name: fullName,
+  //     );
 }

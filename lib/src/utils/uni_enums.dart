@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
+// import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
 import 'package:uni_pay/src/constant/path.dart';
 import 'package:uni_pay/src/constant/uni_text.dart';
 import 'package:uni_pay/src/core/keys/api_keys.dart';
@@ -52,9 +52,9 @@ enum UniPayPaymentMethods {
   }
 
   /// Get the tabby payment method
-  OrderHistoryItemPaymentMethod get tabbyPaymentMethod => isNotSpecified
-      ? OrderHistoryItemPaymentMethod.cod
-      : OrderHistoryItemPaymentMethod.card;
+  // OrderHistoryItemPaymentMethod get tabbyPaymentMethod => isNotSpecified
+  //     ? OrderHistoryItemPaymentMethod.cod
+  //     : OrderHistoryItemPaymentMethod.card;
 
   /// Get the title by the payment method
   String get title => switch (this) {
@@ -106,7 +106,7 @@ enum UniPayLocale {
   }
 
   /// tabby locale
-  Lang get tabbyLang => isArabic ? Lang.ar : Lang.en;
+  // Lang get tabbyLang => isArabic ? Lang.ar : Lang.en;
 
   /// Get the language code
   String get code => isArabic ? "ar" : "en";
@@ -135,22 +135,22 @@ enum UniPayCurrency {
   }
 
   /// Get the tabby currency
-  Currency get tabbyCurrency {
-    switch (this) {
-      case UniPayCurrency.sar:
-        return Currency.sar;
-      case UniPayCurrency.aed:
-        return Currency.aed;
-      case UniPayCurrency.kwd:
-        return Currency.kwd;
-      case UniPayCurrency.bhd:
-        return Currency.bhd;
-      case UniPayCurrency.qar:
-        return Currency.qar;
-      case UniPayCurrency.usd:
-        throw Exception("USD Currency not supported by Tabby");
-    }
-  }
+  // Currency get tabbyCurrency {
+  //   switch (this) {
+  //     case UniPayCurrency.sar:
+  //       return Currency.sar;
+  //     case UniPayCurrency.aed:
+  //       return Currency.aed;
+  //     case UniPayCurrency.kwd:
+  //       return Currency.kwd;
+  //     case UniPayCurrency.bhd:
+  //       return Currency.bhd;
+  //     case UniPayCurrency.qar:
+  //       return Currency.qar;
+  //     case UniPayCurrency.usd:
+  //       throw Exception("USD Currency not supported by Tabby");
+  //   }
+  // }
 }
 
 // enum UniPayItemType { product, service, notSpecified, reservation }
@@ -173,8 +173,8 @@ enum UniPayEnvironment {
       "$tamaraBaseUrl/orders/$orderId";
 
   /// Get the tabby environment
-  Environment get tabbyEnv =>
-      isProduction ? Environment.production : Environment.production;
+  // Environment get tabbyEnv =>
+  //     isProduction ? Environment.production : Environment.production;
 }
 
 enum UniPayStatus {
@@ -216,12 +216,12 @@ enum UniPayOrderStatus {
   cancelled;
 
   /// Get the tabby order history
-  OrderHistoryItemStatus get tabbyOrderStatus => switch (this) {
-        UniPayOrderStatus.pending => OrderHistoryItemStatus.processing,
-        UniPayOrderStatus.completed => OrderHistoryItemStatus.complete,
-        UniPayOrderStatus.refunded => OrderHistoryItemStatus.refunded,
-        UniPayOrderStatus.cancelled => OrderHistoryItemStatus.canceled,
-      };
+  // OrderHistoryItemStatus get tabbyOrderStatus => switch (this) {
+  //       UniPayOrderStatus.pending => OrderHistoryItemStatus.processing,
+  //       UniPayOrderStatus.completed => OrderHistoryItemStatus.complete,
+  //       UniPayOrderStatus.refunded => OrderHistoryItemStatus.refunded,
+  //       UniPayOrderStatus.cancelled => OrderHistoryItemStatus.canceled,
+  //     };
 }
 
 ///* Below section responsible  above enums extentions

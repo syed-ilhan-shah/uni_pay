@@ -79,16 +79,16 @@ class _UniPayGatewayViewState extends State<UniPayGatewayView> {
 
                 if (paymentMethods.isTabbyGateway) ...[
                   const Divider(),
-                  TabbySplitPlanWidget(
-                    widgetData: WidgetData(
-                      currentStatus: uniPayPaymentMethods.isTabby,
-                      locale: UniPayControllers.uniPayData.locale,
-                      totalAmount: UniPayControllers
-                          .uniPayData.orderInfo.transactionAmount.totalAmount,
-                      onChange: (s) => UniPayControllers.changePaymentMethod(
-                          UniPayPaymentMethods.tabby),
-                    ),
-                  ),
+                  // TabbySplitPlanWidget(
+                  //   widgetData: WidgetData(
+                  //     currentStatus: uniPayPaymentMethods.isTabby,
+                  //     locale: UniPayControllers.uniPayData.locale,
+                  //     totalAmount: UniPayControllers
+                  //         .uniPayData.orderInfo.transactionAmount.totalAmount,
+                  //     onChange: (s) => UniPayControllers.changePaymentMethod(
+                  //         UniPayPaymentMethods.tabby),
+                  //   ),
+                  // ),
                 ],
 
                 // Child widget
@@ -108,9 +108,9 @@ class _UniPayGatewayViewState extends State<UniPayGatewayView> {
                       context.uniPush(const UniPayTamara(isFromRoot: false));
                     }
                     // Go to Tabby view
-                    else if (uniPayPaymentMethods.isTabby) {
-                      context.uniPush(const UniPayTabby(isFromRoot: false));
-                    }
+                    // else if (uniPayPaymentMethods.isTabby) {
+                    //   context.uniPush(const UniPayTabby(isFromRoot: false));
+                    // }
                     // Go to Moyasar view
                     else if (uniPayPaymentMethods.isCard) {
                       context.uniPush(const UniPayCard(isFromRoot: false));

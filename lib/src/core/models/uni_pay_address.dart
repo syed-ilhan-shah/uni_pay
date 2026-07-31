@@ -1,4 +1,4 @@
-import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
+// import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
 
 import '../../utils/uni_enums.dart';
 
@@ -44,9 +44,9 @@ class UniPayAddress {
   }
 
   /// Tabby shipping address
-  ShippingAddress get tabbyShippingAddress => ShippingAddress(
-        city: city,
-        address: addressName,
-        zip: zipCode,
-      );
+  // ShippingAddress get tabbyShippingAddress => ShippingAddress(
+  //       city: city,
+  //       address: addressName,
+  //       zip: zipCode,
+  //     );
 }

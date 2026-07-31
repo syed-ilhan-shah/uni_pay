@@ -1,90 +1,90 @@
-import 'package:flutter/material.dart';
-import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
-import 'package:uni_pay/src/constant/uni_text.dart';
-import 'package:uni_pay/src/views/design_system.dart';
-import 'package:uni_pay/uni_pay.dart';
+// import 'package:flutter/material.dart';
+// import 'package:tabby_flutter_inapp_sdk_fork/tabby_flutter_inapp_sdk_fork.dart';
+// import 'package:uni_pay/src/constant/uni_text.dart';
+// import 'package:uni_pay/src/views/design_system.dart';
+// import 'package:uni_pay/uni_pay.dart';
 
-import '../../../core/controllers/uni_pay_controller.dart';
+// import '../../../core/controllers/uni_pay_controller.dart';
 
-class UniPayTabby extends StatefulWidget {
-  /// A view to process payment using Tabby payment gateway
-  ///
-  /// If you wish to use it as a standalone view,
-  ///
-  /// then kindly call `UniPayServices.initUniPay()` first before using this widget.
+// class UniPayTabby extends StatefulWidget {
+//   /// A view to process payment using Tabby payment gateway
+//   ///
+//   /// If you wish to use it as a standalone view,
+//   ///
+//   /// then kindly call `UniPayServices.initUniPay()` first before using this widget.
 
-  const UniPayTabby({Key? key, this.isFromRoot = true}) : super(key: key);
-  final bool isFromRoot;
+//   const UniPayTabby({Key? key, this.isFromRoot = true}) : super(key: key);
+//   final bool isFromRoot;
 
-  @override
-  State<UniPayTabby> createState() => _UniPayTabbyState();
-}
+//   @override
+//   State<UniPayTabby> createState() => _UniPayTabbyState();
+// }
 
-class _UniPayTabbyState extends State<UniPayTabby> {
-  @override
-  void initState() {
-    UniPayControllers.initTabbyCheckoutSession();
-    super.initState();
-  }
+// class _UniPayTabbyState extends State<UniPayTabby> {
+//   @override
+//   void initState() {
+//     UniPayControllers.initTabbyCheckoutSession();
+//     super.initState();
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    WebViewResult? prevResultCode;
-    return ValueListenableBuilder(
-      valueListenable: UniPayControllers.tabbyNotifier,
-      builder: (_, status, __) {
-        final tabbySession = UniPayControllers.tabbySession;
-        bool isTabbyAvailable = status.isSuccess &&
-            tabbySession != null &&
-            tabbySession.availableProducts.installments?.webUrl != null;
-        return Scaffold(
-            appBar: UniPayDesignSystem.appBar(
-              title: UniPayText.checkoutByTabby,
-              isFromRoot: widget.isFromRoot,
-              isShowBackButton: status.isLoading ? false : !isTabbyAvailable,
-            ),
-            body: status.isLoading
-                ? UniPayDesignSystem.loadingIndicator()
-                : isTabbyAvailable
-                    ? TabbyWebView(
-                        webUrl: tabbySession
-                                .availableProducts.installments?.webUrl ??
-                            "",
-                        onResult: (WebViewResult resultCode) {
-                          // Case 1: Payment success
-                          if (resultCode == WebViewResult.authorized) {
-                            UniTabbyServices.processTabbyPayment(
-                              context,
-                              UniPayStatus.success,
-                              transactionId: tabbySession.paymentId,
-                              isFromRoot: widget.isFromRoot,
-                            );
-                          }
-                          // Case 2: Payment canceled
-                          else if (resultCode == WebViewResult.close ||
-                              resultCode == WebViewResult.rejected) {
-                            UniTabbyServices.processTabbyPayment(
-                              context,
-                              UniPayStatus.cancelled,
-                              isFromRoot: widget.isFromRoot,
-                            );
-                          }
-                          // Case 3: Payment failed
-                          else if (prevResultCode == null) {
-                            UniTabbyServices.processTabbyPayment(
-                              context,
-                              UniPayStatus.failed,
-                              isFromRoot: widget.isFromRoot,
-                            );
-                          }
+//   @override
+//   Widget build(BuildContext context) {
+//     WebViewResult? prevResultCode;
+//     return ValueListenableBuilder(
+//       valueListenable: UniPayControllers.tabbyNotifier,
+//       builder: (_, status, __) {
+//         final tabbySession = UniPayControllers.tabbySession;
+//         bool isTabbyAvailable = status.isSuccess &&
+//             tabbySession != null &&
+//             tabbySession.availableProducts.installments?.webUrl != null;
+//         return Scaffold(
+//             appBar: UniPayDesignSystem.appBar(
+//               title: UniPayText.checkoutByTabby,
+//               isFromRoot: widget.isFromRoot,
+//               isShowBackButton: status.isLoading ? false : !isTabbyAvailable,
+//             ),
+//             body: status.isLoading
+//                 ? UniPayDesignSystem.loadingIndicator()
+//                 : isTabbyAvailable
+//                     ? TabbyWebView(
+//                         webUrl: tabbySession
+//                                 .availableProducts.installments?.webUrl ??
+//                             "",
+//                         onResult: (WebViewResult resultCode) {
+//                           // Case 1: Payment success
+//                           if (resultCode == WebViewResult.authorized) {
+//                             UniTabbyServices.processTabbyPayment(
+//                               context,
+//                               UniPayStatus.success,
+//                               transactionId: tabbySession.paymentId,
+//                               isFromRoot: widget.isFromRoot,
+//                             );
+//                           }
+//                           // Case 2: Payment canceled
+//                           else if (resultCode == WebViewResult.close ||
+//                               resultCode == WebViewResult.rejected) {
+//                             UniTabbyServices.processTabbyPayment(
+//                               context,
+//                               UniPayStatus.cancelled,
+//                               isFromRoot: widget.isFromRoot,
+//                             );
+//                           }
+//                           // Case 3: Payment failed
+//                           else if (prevResultCode == null) {
+//                             UniTabbyServices.processTabbyPayment(
+//                               context,
+//                               UniPayStatus.failed,
+//                               isFromRoot: widget.isFromRoot,
+//                             );
+//                           }
 
-                          prevResultCode = resultCode;
-                        },
-                      )
-                    : UniPayDesignSystem.errorView(
-                        title: UniPayText.paymentFailedByTabby,
-                      ));
-      },
-    );
-  }
-}
+//                           prevResultCode = resultCode;
+//                         },
+//                       )
+//                     : UniPayDesignSystem.errorView(
+//                         title: UniPayText.paymentFailedByTabby,
+//                       ));
+//       },
+//     );
+//   }
+// }
